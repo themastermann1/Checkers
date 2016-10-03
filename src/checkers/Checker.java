@@ -35,5 +35,25 @@ public class Checker {
     
     public void king(){
         rank = Type.KING;
+    } 
+    
+    public boolean isAlive() {
+        return alive;
+    }
+
+    public Colour getColour() {
+        return colour;
+    }
+
+    public Type getRank() {
+        return rank;
+    }
+
+    public int getxPos() {
+        return xPos;
+    }
+
+    public int getyPos() {
+        return yPos;
     }
 }
