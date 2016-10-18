@@ -18,6 +18,11 @@ public class Checkers {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        
+        //move to AI.test
+        //Difficulty d = new Difficulty(Difficulty.EASY);
+        //new String n = "name";
+        //AI fred = new AI(n, d);
         System.out.printf("\\xe2\\x98\\xba");
     }
     
