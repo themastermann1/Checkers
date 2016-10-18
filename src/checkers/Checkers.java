@@ -22,6 +22,6 @@ public class Checkers {
     }
     
     public Checkers(){
-        Game = new Game();
+        //Game = new Game();
     }
 }
