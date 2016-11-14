@@ -25,7 +25,7 @@ public class AI extends Player{
     }
     
     private void initNames(){
-        //change this to storing the names in a simple .txt file? allows addintion of names to be saved
+        //change this to stooring the names in a simple .txt file? allows addintion of names to be saved
         //and names of high scooring players to be added to the list for the AI to pick from
         //even add thhings like if ben is top scorer add a randomly generated name based on "ben" to the list, 
         //ie bens dad, chess guru ben, bens ghost etc.

@@ -38,7 +38,7 @@ public class AITest {
         Difficulty d = Difficulty.HELL_ON_EARTH;
         String testName = "replaceMe";
         AI test = new AI(testName, d);
-        //System.out.println(test.name);
+        System.out.println(test.name);
         assertTrue(!(test.getName().equals(testName)));
     }
 }
