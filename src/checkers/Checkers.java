@@ -5,6 +5,7 @@
 package checkers;
 
 import java.io.PrintStream;
+import java.util.Scanner;
 
 /**
  *
@@ -19,39 +20,40 @@ public class Checkers {
     public static void main(String[] args) {
         // TODO code application logic here
         //welcome message
+        System.out.println("Welcome to checkers MK:I");
         //runGame(processInput(getUserInput())); 
     }
        
     private static void runGame(int playerPos){
         Board b = new Board();
+        
+        //setting up the players
         Player p1 = new Player();
         Player p2 = new Player();
         
-        //setting up the players
         p1.setTeam(Colour.BLACK);
+        p1.setName("Player1");
         p2.setTeam(Colour.RED);
+        p2.setName("Player2");
         
         //setting which player goes first
         if (playerPos == 1){
-            p1.setHuman();
-            p2.setAI();
+            p1.setController(Controller.HUMAN);
+            p2.setController(Controller.AI);
         }else{
-            p2.setHuman();
-            p1.setAI();
+            p2.setController(Controller.HUMAN);
+            p1.setController(Controller.AI);
         }
         /*
         while(!b.gameFinished){
             if(player1.type = AI){
-                AITurn();
-                humanTurn();
+                b.AITurn();
+                b.humanTurn();
             }else{
-                humanTurn();
-                AITurn();
+                b.humanTurn();
+                b.AITurn();
             }
             
-            //player 1 turn
-            
-            //player 2 turn
         }
         
         dispaly winning / defeat message
@@ -77,14 +79,32 @@ public class Checkers {
         //b.updateBoard();
     }
     
-    private static int processInput(){
-        return(1);
-        //add an exit statment for then ther users wants to quit
+    private static int processInput(String s){
+        try{
+            return(Integer.parseInt(s));
+        }catch(Exception e){    //change this to a better exception?
+            System.out.println("User Input error.");
+            System.exit(1);     //non zero exit argument, consider adding something that uses this. 
+        }
+        return(0);              //this return statment should never be called...
     }
     
     private static String getUserInput(){
         //use scanner calss for easy
-        return("s");
+        Scanner scanner = new Scanner(System.in);
+        String out = new String();
+        System.out.println("/n Enter 1 to pick black and move first, or 2 to pick red and go second.");
+        System.out.println("Alternativly type \"Quit\" to cole the program: ");
+        String in = scanner.next();
+        
+        if(in.equals("Quit")){
+            System.out.println("So long... Thanks for all the fish!!!");
+            //quit the program
+            System.exit(0); //0 for standard shutdown
+        }else{
+            out = in;
+        }
+        return(out);
     }
     
     //get coordinates from the user

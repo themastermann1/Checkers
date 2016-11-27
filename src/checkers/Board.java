@@ -13,11 +13,10 @@ import java.util.ArrayList;
 public class Board {
 
     /*
-    int[][] board;
-    ArayList<>
-    
-    
-    
+    int[][] board = new int[8][8];
+    ArayList<Position> validPos;
+    ArrayList<Position> availablePos; 
+    ArrayList<Checker> pieces();
     */
     
     private ArrayList<Checker> board;
@@ -31,22 +30,59 @@ public class Board {
         board = new ArrayList<>();
         teamCnt = 12;
         validPos[31][0]=1;
-        //initValidPos(validPos);
+        initValidPos(validPos);
+    }
+    
+    public boolean gameOver(){
+        return false;
+    }
+    
+    public Colour getWinner(){
+        //move this to the checkers class?
+        return Colour.RED;
+    }
+    
+    public ArrayList<Position> getAvailablePos(){
+        return null;
+    }
+    
+    public void humanTurn(){
+        
+    }
+    
+    public void AITurn(){
+        
+    }
+    
+    public void movePiece(Position start, Position end){
+        //try
+        //board.getPiece(pos)
+        //move to end
+    }
+    
+    public void validateMove(){
+        
+    }
+    
+    public void evaluateBoard(){
+        //minimax();
     }
 
     //initilise the pieces for the black team
-    public void initBlack() {
+    public void initRed() {
         // put a black piece in the first teamCnt valid postions
         for (int i = 0; i < teamCnt; i++) {
-            Checker c = new Checker(Colour.BLACK, validPos[i][0], validPos[i][1]);
+            Position p = new Position(validPos[i][0], validPos[i][1]);
+            Checker c = new Checker(Colour.RED, p);
             board.add(c);
         }
     }
 
-    public void initRed() {
+    public void initBlack() {
         // put a red piece in the last teamCnt valid postions
         for (int i = 31; (32 - teamCnt) > i; i--) {
-            Checker c = new Checker(Colour.BLACK, validPos[i][0], validPos[i][1]);
+            Position p = new Position(validPos[i][0], validPos[i][1]);
+            Checker c = new Checker(Colour.BLACK, p);
             board.add(c);
         }
     }

@@ -12,21 +12,18 @@ public class Checker {
     int ID;
     Colour colour;
     Type rank;
-    int xPos;
-    int yPos;
+    Position pos;
     boolean alive;
     
-    Checker(Colour team, int x, int y){
-        xPos = x;
-        yPos = y;
+    Checker(Colour team, Position p){
+        pos = p;
         colour = team;
         rank = Type.PLEB;
         alive = true;
     }
     
-    public void move(int newX, int newY){
-        xPos = newX;
-        yPos = newY;
+    public void move(Position newP){
+        this.pos = newP;
     }
     
     public void kill(){
@@ -49,11 +46,7 @@ public class Checker {
         return rank;
     }
 
-    public int getxPos() {
-        return xPos;
-    }
-
-    public int getyPos() {
-        return yPos;
+    public Position getPos() {
+        return pos;
     }
 }
