@@ -15,4 +15,9 @@ public class Position {
         this.x=x;
         this.y=y;
     }
+    
+    @Override
+    public String toString(){
+        return("[" + (x+1) + "," + (y+1) + "]");
+    }
 }

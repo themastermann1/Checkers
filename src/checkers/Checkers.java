@@ -43,10 +43,16 @@ public class Checkers {
             p1.setController(Controller.AI);
         }
         
+        //move the player selection out of main loop, have it so if AI is first it takes a move first then loop enters as standard.
         while(!b.gameOver()){
             if(p1.getType() == Controller.AI){
                 print("The AI " + p1.getName() + " is taking its turn");
                 b.AITurn();
+                //check to see if the game is over
+                if (b.gameOver()) {
+                    
+                    break;
+                } 
                 print("Its your turn " + p2.getName() + " make your move!!!");
                 print("(x,y)");
                 b.humanTurn();
@@ -54,6 +60,10 @@ public class Checkers {
                 print("Its your turn " + p1.getName() + " make your move!!!");
                 print("(x,y)");
                 b.humanTurn();
+                //check to see if the game is over
+                if (b.gameOver()) {
+                    break;
+                } 
                 print("The AI " + p2.getName() + " is making moves!");
                 b.AITurn();
             }
