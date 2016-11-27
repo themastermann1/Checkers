@@ -5,6 +5,7 @@
 package checkers;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  *
@@ -47,6 +48,7 @@ public class Board {
     }
     
     public void humanTurn(){
+        Position Move = getUserMove();
         
     }
     
@@ -60,15 +62,27 @@ public class Board {
         //move to end
     }
     
+    //get move coordinates from the user, return as a Position
+    private static Position getUserMove(){
+        //scanner
+        Scanner scanner = new Scanner(System.in);
+        int xin = scanner.nextInt()-1;      //adjust for 0 index
+        int yin = scanner.nextInt()-1;
+        Position p = new Position(xin, yin);
+        return(p);
+    }
+    
+    
     public void validateMove(){
         
     }
+    
     
     public void evaluateBoard(){
         //minimax();
     }
 
-    //initilise the pieces for the black team
+    //initilise the pieces for the red team
     public void initRed() {
         // put a black piece in the first teamCnt valid postions
         for (int i = 0; i < teamCnt; i++) {
@@ -77,7 +91,8 @@ public class Board {
             board.add(c);
         }
     }
-
+    
+    //initilise the pieces for the black team
     public void initBlack() {
         // put a red piece in the last teamCnt valid postions
         for (int i = 31; (32 - teamCnt) > i; i--) {
@@ -87,6 +102,7 @@ public class Board {
         }
     }
     
+    //initilise the list of valid positions
     public void initValidPos(int[][]x){
         int[][] vPos = x;
         int c = 0;
@@ -111,17 +127,24 @@ public class Board {
         this.validPos = vPos;
     }
     
+    //return valid positions, unused?
+    public int[][] getValidPos() {
+        //validPos[31][0]=1;
+        return validPos;
+    }
+    
     //test methods, delete later.
     public int[] getEven() {
         return even;
     }
 
+    //test methods, delete later.
     public int[] getOdd() {
         return odd;
     }
-        
-    public int[][] getValidPos() {
-        //validPos[31][0]=1;
-        return validPos;
+    
+    //makes printing to the console a little nicer :)
+    private static void print(String s){
+        System.out.println(s);
     }
 }
