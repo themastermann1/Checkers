@@ -5,6 +5,7 @@
 package checkers;
 
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -13,49 +14,52 @@ import java.util.Scanner;
  */
 public class Board {
 
-    /*
     int[][] board = new int[8][8];
-    ArayList<Position> validPos;
+    ArrayList<Position> validPos;
     ArrayList<Position> availablePos; 
-    ArrayList<Checker> pieces();
-    */
+    ArrayList<Checker> pieces;
     
-    private ArrayList<Checker> board;
     private int[] even = {1, 3, 5, 7};
     private int[] odd = {0, 2, 4, 6};
-    public int[][] validPos = new int[32][2];
+    
+    //public int[][] validPos = new int[32][2];
     //number of pieces on each team
     int teamCnt;
 
     public Board() {
-        board = new ArrayList<>();
+        pieces = new ArrayList<>();
         teamCnt = 12;
-        validPos[31][0]=1;
-        initValidPos(validPos);
-    }
-    
-    public boolean gameOver(){
-        return false;
-    }
-    
-    public Colour getWinner(){
-        //move this to the checkers class?
-        return Colour.RED;
+        
+        initValidPos();
+        ArrayList<Position> bPos =  new ArrayList<>(validPos.subList(0,12));
+        initBlack(bPos);  
+        ArrayList<Position> rPos =  new ArrayList<>(validPos.subList(20,32));
+        initRed(rPos);    
     }
     
     public ArrayList<Position> getAvailablePos(){
         return null;
     }
     
+    //fill this out
     public void humanTurn(){
-        Position Move = getUserMove();
-        
+        print("Pick the piece you want to move");
+        Position moveStart = getUserMove();
+        print(moveStart.toString());
+        print("Pick the location you want to move to");
+        Position moveEnd = getUserMove();
+        print(moveEnd.toString());
     }
     
+    //fill this out
     public void AITurn(){
-        
+        Position moveStart = randMove();
+        print(moveStart.toString());
+        Position moveEnd = randMove();
+        print(moveEnd.toString());
     }
     
+    //fill this out
     public void movePiece(Position start, Position end){
         //try
         //board.getPiece(pos)
@@ -72,65 +76,73 @@ public class Board {
         return(p);
     }
     
-    
+    //TO DO make work
     public void validateMove(){
         
     }
     
-    
+    //TO DO make work
     public void evaluateBoard(){
         //minimax();
     }
 
     //initilise the pieces for the red team
-    public void initRed() {
-        // put a black piece in the first teamCnt valid postions
-        for (int i = 0; i < teamCnt; i++) {
-            Position p = new Position(validPos[i][0], validPos[i][1]);
+    public void initRed(ArrayList<Position> redPos) {
+        for (Position p : redPos) {
             Checker c = new Checker(Colour.RED, p);
-            board.add(c);
+            pieces.add(c);
         }
     }
     
     //initilise the pieces for the black team
-    public void initBlack() {
-        // put a red piece in the last teamCnt valid postions
-        for (int i = 31; (32 - teamCnt) > i; i--) {
-            Position p = new Position(validPos[i][0], validPos[i][1]);
+    public void initBlack(ArrayList<Position> blackPos) {
+        for (Position p : blackPos) {
             Checker c = new Checker(Colour.BLACK, p);
-            board.add(c);
+            pieces.add(c);
         }
     }
     
     //initilise the list of valid positions
-    public void initValidPos(int[][]x){
-        int[][] vPos = x;
-        int c = 0;
-                
+    //old code, refactor (partial refactor complete)
+    public void initValidPos(){
         for (int i = 0; i < 8; i++) {
-            vPos[31][0]=1;
             if (i % 2 == 0) {
                 for (int j = 0; j < 4; j++) {
-                    vPos[c][0] = even[j];
-                    vPos[c][1] = i;
-                    c++;
+                    Position p = new Position(even[j], i);                  
+                    this.validPos.add(p);
                 }
             } else {
                 for (int j = 0; j < 4; j++) {
-                    vPos[c][0] = odd[j];
-                    vPos[c][1] = i;
-                    c++;
+                    Position p = new Position(odd[j], i);                  
+                    this.validPos.add(p);
                 }
             }
         }
-        validPos[31][0]=1;
-        this.validPos = vPos;
     }
     
     //return valid positions, unused?
-    public int[][] getValidPos() {
-        //validPos[31][0]=1;
+    public ArrayList<Position> getValidPos() {
         return validPos;
+    }
+    
+    //TO DO makework!
+    public boolean gameOver(){
+        return false;
+    }
+    
+    //TO DO make work!
+    public Colour getWinner(){
+        //move this to the checkers class?
+        return Colour.RED;
+    }
+    
+    //random move
+    public Position randMove(){
+        Random r = new Random();
+        int x = r.nextInt(8);
+        int y = r.nextInt(8);
+        Position p = new Position(x,y);
+        return p;
     }
     
     //test methods, delete later.
