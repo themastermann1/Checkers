@@ -11,10 +11,11 @@ package checkers;
 public class Player {
     String name;
     Colour team;
+    Controller type;
+    Difficulty diff;
     int score;
     
-    Player(String name){
-        this.name = name;
+    Player(){
     }
     
     public void setTeam(Colour colour){
@@ -23,5 +24,33 @@ public class Player {
     
     public void setName(String name){
         this.name = name;
+    }
+    
+    public void setController(Controller c){
+        this.type = c;
+    }
+    
+    public void setDifficulty(Difficulty d){
+        this.diff = d;
+    }
+    
+    public String getName() {
+        return name;
+    }
+
+    public Colour getTeam() {
+        return team;
+    }
+
+    public Controller getType() {
+        return type;
+    }
+
+    public Difficulty getDiff() {
+        return diff;
+    }
+
+    public int getScore() {
+        return score;
     }
 }

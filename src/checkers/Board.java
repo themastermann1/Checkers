@@ -12,6 +12,14 @@ import java.util.ArrayList;
  */
 public class Board {
 
+    /*
+    int[][] board;
+    ArayList<>
+    
+    
+    
+    */
+    
     private ArrayList<Checker> board;
     private int[] even = {1, 3, 5, 7};
     private int[] odd = {0, 2, 4, 6};

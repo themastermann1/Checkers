@@ -16,12 +16,11 @@ public class AI extends Player{
     private Difficulty difficulty;
     private ArrayList<String> names;
     
-    AI(String n, Difficulty difficulty){
-        super(n); 
+    AI(Difficulty difficulty){
         names = new ArrayList<>();
-        
         initNames();
         this.difficulty = difficulty;
+        this.type = Controller.AI;
     }
     
     private void initNames(){
@@ -31,21 +30,16 @@ public class AI extends Player{
         //ie bens dad, chess guru ben, bens ghost etc.
         this.names.addAll(Arrays.asList("RNJesus","Dicey Dave", "Flipping Fred", "Random Ryan", "Chancy Chad"));
         this.names.trimToSize();
-        this.name = rndName();
     }
     
-    private String rndName(){
+    public void rndName(){
         Random ran = new Random();
         int R = ran.nextInt(names.size());
-        return(names.get(R));
+        setName(names.get(R));
     }
     
     public void addName(String n){
         //lets users add names to list that the AI picks from.
         this.names.add(n);
-    }
-    
-    public String getName(){
-        return this.name;
     }
 }
