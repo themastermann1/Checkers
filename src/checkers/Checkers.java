@@ -45,9 +45,11 @@ public class Checkers {
         
         //move the player selection out of main loop, have it so if AI is first it takes a move first then loop enters as standard.
         while(!b.gameOver()){
+            b.displayBoard();
             if(p1.getType() == Controller.AI){
                 print("The AI " + p1.getName() + " is taking its turn");
                 b.AITurn();
+                b.displayBoard();
                 //check to see if the game is over
                 if (b.gameOver()) {
                     
@@ -56,16 +58,19 @@ public class Checkers {
                 print("Its your turn " + p2.getName() + " make your move!!!");
                 print("(x,y)");
                 b.humanTurn();
+                b.displayBoard();
             }else{
                 print("Its your turn " + p1.getName() + " make your move!!!");
                 print("(x,y)");
                 b.humanTurn();
+                b.displayBoard();
                 //check to see if the game is over
                 if (b.gameOver()) {
                     break;
                 } 
                 print("The AI " + p2.getName() + " is making moves!");
                 b.AITurn();
+                b.displayBoard();
             }
             System.exit(0);
         }
@@ -117,7 +122,7 @@ public class Checkers {
         //use scanner calss for easy
         Scanner scanner = new Scanner(System.in);
         print("\n Enter 1 to pick black and move first, or 2 to pick red and go second.");
-        print("Alternativly type \"Quit\" to cole the program: ");
+        print("Alternativly type \"Quit\" to close the program: ");
         String in = scanner.next();
         
         if(in.equals("Quit")){
