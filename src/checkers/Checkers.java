@@ -37,7 +37,7 @@ public class Checkers {
         //setting which player goes first
         if (playerPos == 1){
             p1.setController(Controller.HUMAN);
-            p2.setController(Controller.AI);
+            p2.setController(Controller.HUMAN);
         }else{
             p2.setController(Controller.HUMAN);
             p1.setController(Controller.AI);
@@ -68,7 +68,8 @@ public class Checkers {
                     break;
                 } 
                 print("The AI " + p2.getName() + " is making moves!");
-                b.AITurn(p2);
+                b.humanTurn(p2);                
+                //b.AITurn(p2);
                 b.displayBoard();
             }
             //System.exit(0);

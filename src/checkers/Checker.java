@@ -32,6 +32,7 @@ public class Checker {
     
     public void king(){
         rank = Type.KING;
+        System.out.println("your piece just became a king!");
     } 
     
     public boolean isAlive() {
