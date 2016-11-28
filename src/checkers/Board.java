@@ -16,7 +16,7 @@ public class Board {
 
     int[][] board = new int[8][8];                 
     ArrayList<Position> validPos = new ArrayList<>();
-    ArrayList<Position> availablePos = new ArrayList<>(); 
+    //ArrayList<Position> availablePos = new ArrayList<>();     //used in minimax????? 
     ArrayList<Checker> pieces = new ArrayList<>();      //encoding of board?
     
     private int[] odd;
@@ -35,7 +35,7 @@ public class Board {
         ArrayList<Position> rPos =  new ArrayList<>(validPos.subList(0, 12));
         initRed(rPos);    
         
-        availablePos = validPos;
+        //availablePos = validPos;
         //for(Position p : validPos){
         //    print(p.toString());
         //}
@@ -43,12 +43,8 @@ public class Board {
         updateBoard();
     }
     
-    public ArrayList<Position> getAvailablePos(){
-        return null;
-    }
-    
     //fill this out
-    public void humanTurn(){
+    public void humanTurn(Player human){
         print("Pick the piece you want to move");
         Position moveStart = getUserMove();
         print(moveStart.toString());
@@ -57,27 +53,25 @@ public class Board {
         Position moveEnd = getUserMove();
         print(moveEnd.toString());
         
-        movePiece1(moveStart, moveEnd);
+        movePiece(moveStart, moveEnd, human.getTeam());
     }
     
     //fill this out
-    public void AITurn(){
-        Position[] move = randMove();
-        print("break2");
+    public void AITurn(Player ai){
+        Position[] move = randMove(ai.getTeam());
         print(move[0].toString());
         print(move[1].toString());
         
         //make the move
-        movePiece(move[0], move[1]);
+        movePiece(move[0], move[1], ai.getTeam());
     }
     
     //Move piece from start to end location.
     //No validation
-    public void movePiece(Position start, Position end){
-        if(validateMove(start, end)){
-            print("break3");
+    public void movePiece(Position start, Position end, Colour team){
+        if(validateMove(start, end, team)){
             for(Checker c : pieces){
-                if(c.getPos().equals(start)){
+                if(c.getPos().x == start.x && c.getPos().y == start.y){
                     c.move(end);
                 }
             }
@@ -86,32 +80,16 @@ public class Board {
             print("oops, looks like thats not a valid move!");
             System.exit(1);         //Invalid move, break and throw some sort of error
         }
-    }
-    
-    //TO DO delete this later
-    public void movePiece1(Position start, Position end){
-        for(Checker c : pieces){
-            if(c.getPos().x == start.x && c.getPos().y == start.y){
-                print("piece moved");
-                c.move(end);
-                updateBoard();
-            }
-        }
     }   
     
     //Check that the start location corrisponds to a piece and the piece is alive.
     //check that the end move is on an available space (clear and valid)
     //add check that piece is of correct colour
-    public boolean validateMove(Position start, Position end){
-        print("break0");
+    public boolean validateMove(Position start, Position end, Colour team){
         for(Checker c : pieces){
-            //print(c.getPos().toString());
-            //print(start.toString() + end.toString());
-            if(c.getPos().x == start.x && c.getPos().y == start.y && c.isAlive()){
-                //print("break1");
-                for(Position p : availablePos){
-                    //print(p.toString());
-                    //print(end.toString());
+            if(c.getPos().x == start.x && c.getPos().y == start.y && c.isAlive() && c.getColour() == team){
+                ArrayList<Position> availableMoves = getAvailableMoves(c);
+                for(Position p : availableMoves){
                     if(p.x == end.x && p.y == end.y){
                         return(true); 
                     }
@@ -119,6 +97,7 @@ public class Board {
             }
         }
         //System.exit(0);
+        print("break0");
         return(false); 
     }
     
@@ -210,37 +189,35 @@ public class Board {
     }
     
     //TO DO makework!
-    public void getAvailablePos(Colour c){
+    public ArrayList<Position> getAvailablePos(Colour c){
         //caculate available moves for the defined colour
         //temp code, remove later
-        availablePos = validPos;
+        
+        //take in a piece
+        //check to see if piece has a valid move
+        
+        return(null);
     }
     
     //random move, used by easy AI
-    public Position[] randMove(){
-        Boolean b = false;
+    public Position[] randMove(Colour team){
+        //Boolean b = false;
         Random r = new Random();
-        //getAvailablePos(Colour.RED);
+        getAvailablePos(team);
         Position[] p = new Position[2];
         p[0] = new Position(-1, -1);
         p[1] = new Position(-1, -1);
         
-       // while(!validateMove(p[0], p[1])){
+        while(!validateMove(p[0], p[1], team)){
             int i = r.nextInt(pieces.size());
             Checker c = pieces.get(i);
-            if(c.isAlive() && c.getColour().equals(Colour.RED)){
-                p[0] = c.getPos();
-                print(p[0].toString());
+            if(c.isAlive() && c.getColour().equals(team)){
+                p[0] = c.getPos();                
                 
-                //set end position
-                //p[1].y = p[0].y+1;
-                //p[1].x = p[0].x+1;
-                
-                p[1].x = 3; //minus 1 for zero norm               
-                p[1].y = 3;
-                print(p[1].toString());
+                p[1].y = p[0].y+1;          //set end position
+                p[1].x = p[0].x+1;
             }  
-        //}
+        }
         return(p);
     }
 
@@ -252,6 +229,66 @@ public class Board {
     //return valid positions, unused?
     public ArrayList<Position> getValidPos() {
         return validPos;
+    }
+    
+    //gets positions of possible moves for piece
+    //messy AF, refactor.
+    public ArrayList<Position> getAvailableMoves(Checker c){
+        ArrayList<Position> availableMoves = new ArrayList<>();
+        Position p = c.getPos();
+        boolean lUp = true;
+        boolean lDn = true;
+        boolean rUp = true;
+        boolean rDn = true;
+        Position rMoveUp = new Position(p.y+1, p.x+1);
+        Position lMoveUp = new Position(p.y+1, p.x-1);
+        Position rMoveDn = new Position(p.y-1, p.x+1);
+        Position lMoveDn = new Position(p.y-1, p.x-1);
+        
+        if(c.getRank() == Type.KING){
+            //can move anydirection
+            for(Checker piece : pieces){
+                if(piece.getPos().x == lMoveUp.x && piece.getPos().y == lMoveUp.y && c.isAlive()){   //if location is free (empty or dead piece)
+                    lUp = false; 
+                    availableMoves.add(lMoveUp);
+                }else if(piece.getPos().x == rMoveUp.x && piece.getPos().y == rMoveUp.y && c.isAlive()){
+                    rUp = false;                    
+                }else if(piece.getPos().x == lMoveDn.x && piece.getPos().y == lMoveDn.y && c.isAlive()){   //if location is free (empty or dead piece)
+                    lDn = false;                   
+                }else if(piece.getPos().x == rMoveDn.x && piece.getPos().y == rMoveDn.y && c.isAlive()){
+                    rDn = false;     
+                }
+                availableMoves.add(lMoveUp);
+                availableMoves.add(rMoveUp);
+                availableMoves.add(lMoveDn);
+                availableMoves.add(rMoveDn);
+                
+            } 
+        }else if (c.getColour() == Colour.BLACK){
+            //down left/right
+            for(Checker piece : pieces){
+                if(piece.getPos().x == lMoveDn.x && piece.getPos().y == lMoveDn.y && c.isAlive()){   //if location is free (empty or dead piece)
+                    lDn = false; 
+                }else if(piece.getPos().x == rMoveDn.x && piece.getPos().y == rMoveDn.y && c.isAlive()){
+                    rDn = false; 
+                }
+                availableMoves.add(lMoveDn);
+                availableMoves.add(rMoveDn);
+            }   
+        }else if (c.getColour() == Colour.RED){
+            //up left/right
+            for(Checker piece : pieces){
+                if(piece.getPos().x == lMoveUp.x && piece.getPos().y == lMoveUp.y && c.isAlive()){   //if location is occupied
+                    lUp = false;                                                                     //set position to false           
+                }else if(piece.getPos().x == rMoveUp.x && piece.getPos().y == rMoveUp.y && c.isAlive()){
+                    rUp = false; 
+                }
+                
+                availableMoves.add(lMoveUp);
+                availableMoves.add(rMoveUp);
+            }  
+        }
+        return null;
     }
     
     //TO DO make work!
