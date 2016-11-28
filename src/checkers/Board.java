@@ -19,6 +19,7 @@ public class Board {
     //ArrayList<Position> availablePos = new ArrayList<>();     //used in minimax????? 
     ArrayList<Checker> pieces = new ArrayList<>();      //encoding of board?
     
+    private boolean canTake;
     private int[] odd;
     private int[] even;   
     int teamCnt;                        //no longer in use
@@ -27,7 +28,8 @@ public class Board {
         this.even = new int[]{0, 2, 4, 6};
         this.odd = new int[]{1, 3, 5, 7};
         pieces = new ArrayList<>();
-        teamCnt = 12;
+        teamCnt = 12;                   //no longer in use
+        canTake = false;
         
         initValidPos();
         ArrayList<Position> bPos =  new ArrayList<>(validPos.subList(20, 32));
@@ -90,6 +92,7 @@ public class Board {
             if(c.getPos().x == start.x && c.getPos().y == start.y && c.isAlive() && c.getColour() == team){
                 ArrayList<Position> availableMoves = getAvailableMoves(c);
                 for(Position p : availableMoves){
+                    //System.out.println(p);
                     if(p.x == end.x && p.y == end.y){
                         return(true); 
                     }
@@ -189,6 +192,7 @@ public class Board {
     }
     
     //TO DO makework!
+    //unused?
     public ArrayList<Position> getAvailablePos(Colour c){
         //caculate available moves for the defined colour
         //temp code, remove later
@@ -203,7 +207,7 @@ public class Board {
     public Position[] randMove(Colour team){
         //Boolean b = false;
         Random r = new Random();
-        getAvailablePos(team);
+        getAvailablePos(team); // unused?
         Position[] p = new Position[2];
         p[0] = new Position(-1, -1);
         p[1] = new Position(-1, -1);
@@ -240,10 +244,10 @@ public class Board {
         boolean lDn = true;
         boolean rUp = true;
         boolean rDn = true;
-        Position rMoveUp = new Position(p.y+1, p.x+1);
-        Position lMoveUp = new Position(p.y+1, p.x-1);
-        Position rMoveDn = new Position(p.y-1, p.x+1);
-        Position lMoveDn = new Position(p.y-1, p.x-1);
+        Position rMoveUp = new Position(p.x+1, p.y+1);
+        Position lMoveUp = new Position(p.x-1, p.y+1);
+        Position rMoveDn = new Position(p.x+1, p.y-1);
+        Position lMoveDn = new Position(p.x-1, p.y-1);
         
         if(c.getRank() == Type.KING){
             //can move anydirection
@@ -258,12 +262,21 @@ public class Board {
                 }else if(piece.getPos().x == rMoveDn.x && piece.getPos().y == rMoveDn.y && c.isAlive()){
                     rDn = false;     
                 }
-                availableMoves.add(lMoveUp);
-                availableMoves.add(rMoveUp);
-                availableMoves.add(lMoveDn);
-                availableMoves.add(rMoveDn);
-                
             } 
+            if(lUp){
+                availableMoves.add(lMoveUp);
+            }else{          
+                
+            }
+            if(rUp){
+                availableMoves.add(rMoveUp);
+            }
+            if(lDn){
+                availableMoves.add(lMoveDn);
+            }
+            if(rDn){
+                availableMoves.add(rMoveDn);
+            }
         }else if (c.getColour() == Colour.BLACK){
             //down left/right
             for(Checker piece : pieces){
@@ -272,9 +285,18 @@ public class Board {
                 }else if(piece.getPos().x == rMoveDn.x && piece.getPos().y == rMoveDn.y && c.isAlive()){
                     rDn = false; 
                 }
-                availableMoves.add(lMoveDn);
-                availableMoves.add(rMoveDn);
             }   
+            if(lDn){
+                availableMoves.add(lMoveDn);
+            }else{              // a piece is blocking this move
+                //check to see if blocking piece is from other team
+                //if true, check left and down.
+                //make jump true
+                //make sure to only return jump moves as possible
+            }
+            if(rDn){
+                availableMoves.add(rMoveDn);
+            }
         }else if (c.getColour() == Colour.RED){
             //up left/right
             for(Checker piece : pieces){
@@ -282,13 +304,20 @@ public class Board {
                     lUp = false;                                                                     //set position to false           
                 }else if(piece.getPos().x == rMoveUp.x && piece.getPos().y == rMoveUp.y && c.isAlive()){
                     rUp = false; 
-                }
-                
+                }  
+            }
+            if(lUp){
                 availableMoves.add(lMoveUp);
+            }
+            if(rUp){
                 availableMoves.add(rMoveUp);
-            }  
+            }
+            
         }
-        return null;
+        for(Position pos:availableMoves){
+            //print(pos.toString());
+        }
+        return (availableMoves);
     }
     
     //TO DO make work!
