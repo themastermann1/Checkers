@@ -20,4 +20,6 @@ public class Position {
     public String toString(){
         return("[" + (x+1) + "," + (y+1) + "]");
     }
+    
+    //add an override for the equals method
 }

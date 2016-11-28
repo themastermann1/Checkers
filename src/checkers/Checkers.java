@@ -72,7 +72,7 @@ public class Checkers {
                 b.AITurn();
                 b.displayBoard();
             }
-            System.exit(0);
+            //System.exit(0);
         }
         
         //dispaly winning / defeat message

@@ -36,9 +36,9 @@ public class Board {
         initRed(rPos);    
         
         availablePos = validPos;
-        for(Position p : validPos){
-            print(p.toString());
-        }
+        //for(Position p : validPos){
+        //    print(p.toString());
+        //}
         
         updateBoard();
     }
@@ -57,7 +57,7 @@ public class Board {
         Position moveEnd = getUserMove();
         print(moveEnd.toString());
         
-        movePiece(moveStart, moveEnd);
+        movePiece1(moveStart, moveEnd);
     }
     
     //fill this out
@@ -77,15 +77,27 @@ public class Board {
         if(validateMove(start, end)){
             print("break3");
             for(Checker c : pieces){
-                if(c.getPos() == start){
+                if(c.getPos().equals(start)){
                     c.move(end);
                 }
             }
+            updateBoard();
         }else{
             print("oops, looks like thats not a valid move!");
             System.exit(1);         //Invalid move, break and throw some sort of error
         }
     }
+    
+    //TO DO delete this later
+    public void movePiece1(Position start, Position end){
+        for(Checker c : pieces){
+            if(c.getPos().x == start.x && c.getPos().y == start.y){
+                print("piece moved");
+                c.move(end);
+                updateBoard();
+            }
+        }
+    }   
     
     //Check that the start location corrisponds to a piece and the piece is alive.
     //check that the end move is on an available space (clear and valid)
@@ -95,16 +107,16 @@ public class Board {
         for(Checker c : pieces){
             //print(c.getPos().toString());
             //print(start.toString() + end.toString());
-            //if(c.getPos().x == start.x && c.getPos().y == start.y && c.alive){
-                print("break1");
+            if(c.getPos().x == start.x && c.getPos().y == start.y && c.isAlive()){
+                //print("break1");
                 for(Position p : availablePos){
-                    print(p.toString());
-                    print(end.toString());
-                    if(p == end){
+                    //print(p.toString());
+                    //print(end.toString());
+                    if(p.x == end.x && p.y == end.y){
                         return(true); 
                     }
                 }
-            //}
+            }
         }
         //System.exit(0);
         return(false); 
@@ -146,14 +158,16 @@ public class Board {
     
     //2d array containing the board state. Black = 1, Red = 2, empty = 0
     public void updateBoard(){
+        int[][] b = new int[8][8];   
         for (Checker c : pieces) {
             Position p = c.getPos();
             if(c.colour == Colour.BLACK){
-                board[p.x][p.y] = 1;
-            }else{
-                board[p.x][p.y] = 2;
+                b[p.x][p.y] = 1;
+            }else if (c.colour == Colour.RED){
+                b[p.x][p.y] = 2;
             }
         }
+        board = b;
     }
     
     //TO DO make work
