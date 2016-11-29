@@ -28,6 +28,7 @@ public class Checker {
     
     public void kill(){
         alive = false;
+        System.out.println("R.I.P");
     }
     
     public void king(){

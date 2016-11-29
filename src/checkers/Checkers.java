@@ -50,8 +50,7 @@ public class Checkers {
                 b.AITurn(p1);
                 b.displayBoard();
                 //check to see if the game is over
-                if (b.gameOver()) {
-                    
+                if (b.gameOver()) {   
                     break;
                 } 
                 print("Its your turn " + p2.getName() + " make your move!!!");
