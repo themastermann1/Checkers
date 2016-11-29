@@ -27,7 +27,7 @@ public class Checker {
     }
     
     public void kill(){
-        alive = false;
+        this.alive = false;
         System.out.println("R.I.P");
     }
     

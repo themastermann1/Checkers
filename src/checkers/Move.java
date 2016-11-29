@@ -42,8 +42,8 @@ public class Move {
         return take;
     }
 
-    public void setTake(Boolean take) {
-        this.take = take;
+    public void setTake() {
+        this.take = true;
     }
 
     public int getScore() {
