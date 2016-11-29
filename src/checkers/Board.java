@@ -63,7 +63,7 @@ public class Board {
     
     //fill this out
     public void AITurn(Player ai){
-        Move m = randMove(ai.getTeam());
+        Move m = randMove2(ai.getTeam());
         print(m.getStart().toString());
         print(m.getEnd().toString());
         
@@ -245,7 +245,7 @@ public class Board {
         return(null);
     }
     
-    //random move, used by easy AI
+    //random move, used by easy AI  **BROKEN**
     public Move randMove(Colour team){
         //Boolean b = false;
         Random r = new Random();
@@ -271,6 +271,16 @@ public class Board {
             }  
         }
         return(m);
+    }
+    
+    //random move, used by easy AI
+    public Move randMove2(Colour team){
+        Random r = new Random();
+        getAllAvailableMoves(team);
+        
+        int i = r.nextInt(allMoves.size());
+        
+        return allMoves.get(i);
     }
     
     //returns a list of all moves currently possible 
@@ -302,6 +312,19 @@ public class Board {
             print(m.getStart().toString() + m.getEnd().toString());
         }
     }    
+    
+    //gives a score to each available move
+    public void scoreMoves(){
+        //include number of pieces taken
+        //include some sort of benifit for becoming a king?
+        for(Move m : allMoves){
+            if(m.getTake()){
+                m.setScore(1);
+            }else{
+                m.setScore(0);
+            }
+        }
+    }
     
     //returns a list of moves available for the passed checker
     //messy AF, refactor.
@@ -562,7 +585,7 @@ public class Board {
         }
     }
     
-    //TO DO makework!
+    //returns true when curent player cant make any moves.
     public boolean gameOver(Colour turn){
         getAllAvailableMoves(turn);
         if(allMoves.isEmpty()){
