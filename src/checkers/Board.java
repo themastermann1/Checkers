@@ -78,14 +78,12 @@ public class Board {
             for(Checker c : pieces){
                 if(c.getPos().x == m.getStart().x && c.getPos().y == m.getStart().y && c.alive){
                     c.move(m.getEnd());
-                    print("breake move");
                     if(m.getTake() == true){
                         int x = m.getStart().x + m.getEnd().x;
                         int y = m.getStart().y + m.getEnd().y;
                         Position p = new Position(x/2, y/2);
-                        print(p.toString());
                         for(Checker c2 : pieces){
-                            if(c2.getPos() == p && c2.alive){                                
+                            if(c2.getPos().x == p.x && c2.getPos().y == p.y && c2.alive){  
                                 c2.kill();                     //c2 has been taken, rip.
                                 if(c2.getRank() == Type.KING){      //kill a king become a king
                                     c.king();
