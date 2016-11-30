@@ -85,8 +85,10 @@ public class Board {
                         for(Checker c2 : pieces){
                             if(c2.getPos().x == p.x && c2.getPos().y == p.y && c2.alive){  
                                 c2.kill();                     //c2 has been taken, rip.
+                                m.setScore(1);
                                 if(c2.getRank() == Type.KING){      //kill a king become a king
                                     c.king();
+                                    m.setScore(2);
                                 }
                             }
                         }
@@ -94,9 +96,11 @@ public class Board {
                     //kinging a piece that reaches the end of the board
                     if(c.getColour() == Colour.RED && c.getPos().y == 7){
                         c.king();
+                        m.setScore(2);
                         break;      //once kinged move ends
                     }else if(c.getColour() == Colour.BLACK && c.getPos().y == 0){
                         c.king();
+                        m.setScore(2);
                         break;
                     }
                 }
@@ -192,11 +196,6 @@ public class Board {
         board = b;
     }
     
-    //TO DO make work
-    public void evaluateBoard(){
-        //minimax();
-    }
-
     //initilise the pieces for the red team
     public void initRed(ArrayList<Position> redPos) {
         for (Position p : redPos) {
@@ -231,8 +230,7 @@ public class Board {
         }
     }
     
-    //TO DO makework!
-    //unused?
+    //returns a move
     public Move getMove(Move m){
         for(Move mov : allMoves){
             //ewwwwww shitty if statment :(
@@ -610,10 +608,16 @@ public class Board {
         return false;
     }
     
-    //TO DO make work!
-    public Colour getWinner(){
-        //move this to the checkers class?
-        return Colour.RED;
+    //REDUNDANT?
+    public void miniMax(int depth, Player p){
+    }
+
+    public ArrayList<Checker> getPieces(){
+        return pieces;
+    }
+    
+    public void setPieces(ArrayList<Checker> p){
+        this.pieces = p;
     }
     
     //test methods, delete later.

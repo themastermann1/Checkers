@@ -25,6 +25,8 @@ public class Checkers {
     private static void runGame(int playerPos){
         Board b = new Board();
         
+        Colour winner = Colour.RED;
+        
         //setting up the players
         Player p1 = new Player();
         Player p2 = new Player();
@@ -36,7 +38,7 @@ public class Checkers {
         
         //setting which player goes first
         if (playerPos == 1){
-            p1.setController(Controller.HUMAN);
+            p1.setController(Controller.AI);
             p2.setController(Controller.HUMAN);
         }else{
             p2.setController(Controller.HUMAN);
@@ -45,12 +47,15 @@ public class Checkers {
         b.displayBoard();
         //move the player selection out of main loop, have it so if AI is first it takes a move first then loop enters as standard.
         while(!b.gameOver(p1.getTeam())){
+            winner =(p1.getTeam());
             if(p1.getType() == Controller.AI){
                 print("The AI " + p1.getName() + " is taking its turn");
+                //change to miniMax(boad b, p1)
                 b.AITurn(p1);
                 b.displayBoard();
                 //check to see if the game is over
-                if (b.gameOver(p2.getTeam())) {   
+                if (b.gameOver(p2.getTeam())) {  
+                    winner = (p2.getTeam());
                     break;
                 } 
                 print("Its your turn " + p2.getName() + " make your move!!!");
@@ -64,6 +69,7 @@ public class Checkers {
                 b.displayBoard();
                 //check to see if the game is over
                 if (b.gameOver(p2.getTeam())) {
+                    winner = (p2.getTeam());
                     break;
                 } 
                 print("The AI " + p2.getName() + " is making moves!");
@@ -75,13 +81,11 @@ public class Checkers {
         }
         
         //dispaly winning / defeat message
-        Colour winner = b.getWinner();
         if(p1.getTeam() == winner){
             print("Player: " + p1.getName() + " Takes the game!");
         } else {
             print("Player: " + p2.getName() + " Wins the match!");
-        }
-        
+        }        
         
     //fix this recursion, if statment or something?
     print("\n Rematch?");

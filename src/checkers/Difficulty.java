@@ -9,5 +9,18 @@ package checkers;
  * @author sdm29
  */
 public enum Difficulty {
-    EASY,HARD,SUICIDAL,HELL_ON_EARTH
+    EASY (1),
+    HARD (3),
+    SUICIDAL (10),
+    HELL_ON_EARTH (15);
+
+    private final int depth;
+    
+    Difficulty(int depth) {
+        this.depth = depth;
+    }
+
+    public int getDepth(){
+        return depth;
+    }
 }
