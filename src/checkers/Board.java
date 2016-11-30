@@ -629,6 +629,10 @@ public class Board {
     public int[] getOdd() {
         return odd;
     }
+
+    public int[][] getBoard() {
+        return board;
+    }
     
     //makes printing to the console a little nicer :)
     private static void print(String s){

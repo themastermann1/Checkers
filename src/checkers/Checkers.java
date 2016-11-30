@@ -13,13 +13,16 @@ import java.util.Scanner;
  */
 public class Checkers {
     
+    static GUI gui = new GUI();
+    
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         //welcome message
         print("Welcome to checkers MK:I");
-        runGame(processInput(getUserInput()));
+        //get user inupt from board?
+        runGame(processInput(getUserInput2()));
     }
        
     private static void runGame(int playerPos){
@@ -45,6 +48,8 @@ public class Checkers {
             p1.setController(Controller.AI);
         }
         b.displayBoard();
+        gui.setBoard(b.getBoard());
+        gui.printBoard();
         //move the player selection out of main loop, have it so if AI is first it takes a move first then loop enters as standard.
         while(!b.gameOver(p1.getTeam())){
             winner =(p1.getTeam());
@@ -53,6 +58,8 @@ public class Checkers {
                 //change to miniMax(boad b, p1)
                 b.AITurn(p1);
                 b.displayBoard();
+                gui.setBoard(b.getBoard());
+                gui.printBoard();
                 //check to see if the game is over
                 if (b.gameOver(p2.getTeam())) {  
                     winner = (p2.getTeam());
@@ -62,11 +69,15 @@ public class Checkers {
                 print("(x,y)");
                 b.humanTurn(p2);
                 b.displayBoard();
+                gui.setBoard(b.getBoard());
+                gui.printBoard();
             }else{
                 print("Its your turn " + p1.getName() + " make your move!!!");
                 print("(x,y)");
                 b.humanTurn(p1);
                 b.displayBoard();
+                gui.setBoard(b.getBoard());
+                gui.printBoard();
                 //check to see if the game is over
                 if (b.gameOver(p2.getTeam())) {
                     winner = (p2.getTeam());
@@ -76,6 +87,8 @@ public class Checkers {
                 b.humanTurn(p2);                
                 //b.AITurn(p2);
                 b.displayBoard();
+                gui.setBoard(b.getBoard());
+                gui.printBoard();
             }
             //System.exit(0);
         }
@@ -118,6 +131,20 @@ public class Checkers {
         }
         return(in);
     }
+    
+    private static String getUserInput2(){
+        gui.setText("Enter 1 to pick black and move first, or 2 to pick red and go second.");
+        gui.setText("Alternativly type \"Quit\" to close the program: ");
+        String in = gui.getText();
+        in= "1";
+        if(in.equals("Quit")){
+            print("So long... Thanks for all the fish!!!");
+            //quit the program
+            System.exit(0); //0 for standard shutdown
+        }
+        return(in);
+    }
+    
     
     //makes printing to the console a little nicer :)
     private static void print(String s){
