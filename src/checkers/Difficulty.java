@@ -9,6 +9,7 @@ package checkers;
  * @author sdm29
  */
 public enum Difficulty {
+    BABY (0),
     EASY (1),
     HARD (3),
     SUICIDAL (10),
