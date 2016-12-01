@@ -63,6 +63,10 @@ public class Move {
         taken.add(c);
     }
     
+    public void setTaken(ArrayList<Checker> c){
+        taken = c;
+    }
+    
     public ArrayList<Checker> getTaken(){
         return this.taken;
     }

@@ -80,24 +80,18 @@ public class Board {
     public void movePiece(Move mov, Colour team){
         if(validateMove(mov, team)){
             Move m = getMove(mov);          //get some try catch action going on
-            Checker toRemove = new Checker(null, null);
+            //Checker toRemove = new Checker(null, null);
             for(Checker c : pieces){
                 if(c.getPos().x == m.getStart().x && c.getPos().y == m.getStart().y && c.alive){
                     c.move(m.getEnd());
-                    if(m.getTake() == true){ //cumbersome and dosent work with multi takes
-                        int x = m.getStart().x + m.getEnd().x;
-                        int y = m.getStart().y + m.getEnd().y;
-                        Position p = new Position(x/2, y/2);
-                        for(Checker c2 : pieces){
-                            if(c2.getPos().x == p.x && c2.getPos().y == p.y && c2.alive){  
-                                c2.kill();                     //c2 has been taken, rip.
-                                toRemove = c2;
-                                m.setScore(1);
-                                if(c2.getRank() == Type.KING){      //kill a king become a king
-                                    c.king();
-                                    m.setScore(2);
-                                }
-                            }
+                    if(m.getTake() == true){
+                        for(Checker c2 : m.taken){
+                            c2.kill();                     //c2 has been taken, rip.
+                            m.setScore(1);
+                            if(c2.getRank() == Type.KING){      //kill a king become a king
+                                c.king();
+                                m.setScore(2);
+                            } 
                         }
                     }
                     //kinging a piece that reaches the end of the board
@@ -114,7 +108,10 @@ public class Board {
             }
             //remove pieces due to dead pieces messing up capturing
             //bad practice as prevents reverting a move
-            pieces.remove(toRemove);
+            for(Checker c2 : m.taken){
+                pieces.remove(c2);               
+            }
+            
             System.out.println("piece moved");
             updateBoard();
         }else{
@@ -135,39 +132,6 @@ public class Board {
                 c.move(m.getStart());
             }
         } 
-    }
-    
-            
-    //dosent work for kings or multi moves re-write
-    public void undoMove2(Move m, Colour team1){
-        Colour team2 = Colour.BLACK;
-        if(team1 == Colour.BLACK){
-            team2 = Colour.RED;
-        }
-        Checker takenC = new Checker(null, null);
-        
-        for(Checker c : pieces){
-            //get the checker thats at the end of the move
-            if(c.getPos().x == m.getEnd().x && c.getPos().y == m.getEnd().y && c.alive){
-                //move it back to the start
-                c.move(m.getStart());
-                //check to see if a piece was take during the move
-                if(m.getTake() ==  true){
-                        //pos p = halfway between start and end pos
-                        int x = m.getStart().x + m.getEnd().x;
-                        int y = m.getStart().y + m.getEnd().y;
-                        Position p = new Position(x/2, y/2);
-                        //make a new chcker of opposite team at pos p
-                        takenC.move(p);
-                        takenC.setColour(team2);
-                        //if the piece was a king???
-                }
-            }
-        }
-        //add it back to the array of pieces
-        if(!(takenC.getColour() == null)){
-            pieces.add(takenC);
-        }
     }
     
     //Check that the start location corrisponds to a piece and the piece is alive.
@@ -306,34 +270,6 @@ public class Board {
         return(null);
     }
     
-    //random move, used by easy AI  **BROKEN**
-    public Move randMove(Colour team){
-        //Boolean b = false;
-        Random r = new Random();
-        Position p1 = new Position(-1, -1);
-        Position p2 = new Position(-1, -1);
-        Move m = new Move(p1,p2);
-        
-        while(!validateMove(m, team)){
-            int i = r.nextInt(pieces.size());
-            Checker c = pieces.get(i);
-            if(c.isAlive() && c.getColour().equals(team)){
-                m.setStart(c.getPos());                
-                
-                //randomly pick to more left or right
-                p2 = m.getStart();
-                p2.y += 1;
-                if(r.nextInt(2)==0){          //set end position
-                    p2.x += 1;
-                }else{
-                    p2.x -= 1;
-                }
-                m.setEnd(p2);
-            }  
-        }
-        return(m);
-    }
-    
     //random move, used by easy AI
     public Move randMove2(Colour team){
         Random r = new Random();
@@ -403,6 +339,8 @@ public class Board {
         takeL2 = false;
         takeR2 = false;
         
+        ArrayList<Checker> taken = new ArrayList<>();
+        
         Position rMoveUp = new Position(p.x+1, p.y+1);
         Position lMoveUp = new Position(p.x-1, p.y+1);
         Position rMoveDn = new Position(p.x+1, p.y-1);
@@ -414,14 +352,15 @@ public class Board {
                 if(piece.getPos().x == lMoveUp.x && piece.getPos().y == lMoveUp.y && c.isAlive()){   //if location is occupied
                     lUp = false;                                                                     //set position to false 
                     if(!piece.getColour().equals(c.getColour())){   //check to see if blocking piece is from other team
-                        takeL = true;
                         for(Checker piece2 : pieces){
                             if((piece2.getPos().x == (lMoveUp.x - 1) && piece2.getPos().y == (lMoveUp.y + 1)) && piece2.isAlive()){    
                                 //no free space, cannot take
+                                takeL = false;
                                 break;      //exit the if statment as no take possible 
                             }else{          //TO DO remove this else as no longer used?
                                 //free space behind, take available
                                 takeL = true;         //signal that a piece can be taken, 
+                                taken.add(piece);
                             }
                         }
                     }
@@ -436,6 +375,7 @@ public class Board {
                             }else{
                                 //free space behind, take available
                                 takeR = true;         //signal that a piece can be taken, 
+                                taken.add(piece);
                             }
                         }
                     }
@@ -450,6 +390,7 @@ public class Board {
                             }else{
                                 //free space behind, take available
                                 takeL2 = true;         //signal that a piece can be taken, 
+                                taken.add(piece);
                             }
                         }
                     }
@@ -464,6 +405,7 @@ public class Board {
                             }else{
                                 //free space behind, take available
                                 takeR2 = true;         //signal that a piece can be taken, 
+                                taken.add(piece);
                             }
                         }
                     }
@@ -476,10 +418,9 @@ public class Board {
                 lMoveUp.x -=1;
                 lMoveUp.y +=1;
                 Move m = new Move(c.getPos(), lMoveUp);
+                m.setTaken(taken);
                 m.setTake();
-                availableMoves.add(m);  //TO DO add this line elsewhere king
-                //print(m.getEnd().toString());
-                //print("break3");
+                availableMoves.add(m);
             }     
             if(rUp){
                 Move m = new Move(c.getPos(), rMoveUp);
@@ -488,6 +429,7 @@ public class Board {
                 rMoveUp.x +=1;
                 rMoveUp.y +=1;
                 Move m = new Move(c.getPos(), rMoveUp);
+                m.setTaken(taken);
                 m.setTake();
                 availableMoves.add(m);
             }
@@ -498,6 +440,7 @@ public class Board {
                 lMoveDn.x -=1;
                 lMoveDn.y -=1;
                 Move m = new Move(c.getPos(), lMoveDn);
+                m.setTaken(taken);
                 m.setTake();
                 availableMoves.add(m);
             }
@@ -508,6 +451,7 @@ public class Board {
                 rMoveDn.x +=1;
                 rMoveDn.y -=1;
                 Move m = new Move(c.getPos(), rMoveDn);
+                m.setTaken(taken);
                 m.setTake();
                 availableMoves.add(m);
             }
@@ -526,6 +470,7 @@ public class Board {
                             }else{
                                 //free space behind, take available
                                 takeL = true;         //signal that a piece can be taken, 
+                                taken.add(piece);
                             }
                         }
                     }
@@ -540,6 +485,7 @@ public class Board {
                             }else{
                                 //free space behind, take available
                                 takeR = true;         //signal that a piece can be taken, 
+                                taken.add(piece);
                             }
                         }
                     }
@@ -552,6 +498,7 @@ public class Board {
                 lMoveDn.x -=1;
                 lMoveDn.y -=1;
                 Move m = new Move(c.getPos(), lMoveDn);
+                m.setTaken(taken);
                 m.setTake();
                 availableMoves.add(m);
             }
@@ -562,6 +509,7 @@ public class Board {
                 rMoveDn.x +=1;
                 rMoveDn.y -=1;
                 Move m = new Move(c.getPos(), rMoveDn);
+                m.setTaken(taken);
                 m.setTake();
                 availableMoves.add(m);
             }
@@ -575,12 +523,10 @@ public class Board {
                             if((piece2.getPos().x == (lMoveUp.x - 1) && piece2.getPos().y == (lMoveUp.y + 1)) && piece2.isAlive()){    
                                 //no free space, cannot take
                                 takeL = false; 
-                                //print("break1");
-                                break;      //exit the if statment as no take possible 
-                            }else{          //TO DO remove this else as no longer used?
-                                //free space behind, take available
-                                //print("break2.5");
-                                takeL = true;         //signal that a piece can be taken, 
+                                break;                  //exit the if statment as no take possible 
+                            }else{                      //free space behind, take available
+                                takeL = true;           //signal that a piece can be taken, 
+                                taken.add(piece);      //add taken piece to taken list
                             }
                         }
                     }
@@ -595,6 +541,7 @@ public class Board {
                             }else{
                                 //free space behind, take available
                                 takeR = true;         //signal that a piece can be taken, 
+                                taken.add(piece);
                             }
                         }
                     }
@@ -607,6 +554,7 @@ public class Board {
                 lMoveUp.x -=1;
                 lMoveUp.y +=1;
                 Move m = new Move(c.getPos(), lMoveUp);
+                m.setTaken(taken);
                 m.setTake();
                 availableMoves.add(m); 
             }     
@@ -618,6 +566,8 @@ public class Board {
                 rMoveUp.x +=1;
                 rMoveUp.y +=1;
                 Move m = new Move(c.getPos(), rMoveUp);
+                //set the pieces that have been taken
+                m.setTaken(taken);
                 m.setTake();
                 availableMoves.add(m);
             }

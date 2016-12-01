@@ -48,6 +48,7 @@ public class Checkers {
         }else{
             p2.setController(Controller.HUMAN);
             p1.setController(Controller.HUMAN);
+            //p1.setController(Controller.AI);
         }
         b.displayBoard();
         gui.setBoard(b.getBoard());
@@ -126,27 +127,11 @@ public class Checkers {
         return(0);              //this return statment should never be called...
     }
     
-    //get basic menu input from user
-    private static String getUserInput(){
-        //use scanner calss for easy
-        Scanner scanner = new Scanner(System.in);
-        print("\n Enter 1 to pick black and move first, or 2 to pick red and go second.");
-        print("Alternativly type \"Quit\" to close the program: ");
-        String in = scanner.next();
-        
-        if(in.equals("Quit")){
-            print("So long... Thanks for all the fish!!!");
-            //quit the program
-            System.exit(0); //0 for standard shutdown
-        }
-        return(in);
-    }
-    
     private static String getUserInput2(){
         gui.setText("Enter 1 to pick black and move first, or 2 to pick red and go second.");
         gui.setText("Alternativly type \"Quit\" to close the program: ");
         String in = gui.getText();
-        in= "1";
+        in= "2";
         if(in.equals("Quit")){
             print("So long... Thanks for all the fish!!!");
             //quit the program
