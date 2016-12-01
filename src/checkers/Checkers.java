@@ -36,8 +36,10 @@ public class Checkers {
         
         p1.setTeam(Colour.BLACK);
         p1.setName("Player1");
+        p1.setDifficulty(Difficulty.BABY);
         p2.setTeam(Colour.RED);
         p2.setName("Player2");
+        p2.setDifficulty(Difficulty.BABY);
         
         //setting which player goes first
         if (playerPos == 1){
@@ -55,8 +57,16 @@ public class Checkers {
             winner =(p1.getTeam());
             if(p1.getType() == Controller.AI){
                 print("The AI " + p1.getName() + " is taking its turn");
-                //change to miniMax(boad b, p1)
-                b.AITurn(p1);
+                
+                MiniMax mini = new MiniMax(b, p1);
+                System.out.println("score" + mini.evalBoard());
+                Move move = mini.getBestMove();
+                print(move.getStart().toString() + move.getEnd().toString());
+                b.displayBoard();
+                b.movePiece(move, p1.getTeam());
+                //b.AITurn(p1);
+                
+                
                 b.displayBoard();
                 gui.setBoard(b.getBoard());
                 gui.printBoard();
@@ -136,7 +146,7 @@ public class Checkers {
         gui.setText("Enter 1 to pick black and move first, or 2 to pick red and go second.");
         gui.setText("Alternativly type \"Quit\" to close the program: ");
         String in = gui.getText();
-        in= "2";
+        in= "1";
         if(in.equals("Quit")){
             print("So long... Thanks for all the fish!!!");
             //quit the program

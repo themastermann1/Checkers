@@ -18,7 +18,7 @@ public class Board {
     ArrayList<Position> validPos = new ArrayList<>();
     //ArrayList<Position> availablePos = new ArrayList<>();     //used in minimax????? 
     ArrayList<Checker> pieces = new ArrayList<>();      //encoding of board?
-    ArrayList<Move> allMoves = new ArrayList<>();
+    public ArrayList<Move> allMoves = new ArrayList<>();
     
     //private boolean canTake;
     private int[] odd;
@@ -63,9 +63,14 @@ public class Board {
     
     //fill this out
     public void AITurn(Player ai){
+        
+        
         Move m = randMove2(ai.getTeam());
+        
         print(m.getStart().toString());
         print(m.getEnd().toString());
+        
+        //MiniMax mini = new MiniMax(board, ai);
         
         //make the move
         movePiece(m, ai.getTeam());
@@ -75,16 +80,18 @@ public class Board {
     public void movePiece(Move mov, Colour team){
         if(validateMove(mov, team)){
             Move m = getMove(mov);          //get some try catch action going on
+            Checker toRemove = new Checker(null, null);
             for(Checker c : pieces){
                 if(c.getPos().x == m.getStart().x && c.getPos().y == m.getStart().y && c.alive){
                     c.move(m.getEnd());
-                    if(m.getTake() == true){
+                    if(m.getTake() == true){ //cumbersome and dosent work with multi takes
                         int x = m.getStart().x + m.getEnd().x;
                         int y = m.getStart().y + m.getEnd().y;
                         Position p = new Position(x/2, y/2);
                         for(Checker c2 : pieces){
                             if(c2.getPos().x == p.x && c2.getPos().y == p.y && c2.alive){  
                                 c2.kill();                     //c2 has been taken, rip.
+                                toRemove = c2;
                                 m.setScore(1);
                                 if(c2.getRank() == Type.KING){      //kill a king become a king
                                     c.king();
@@ -96,21 +103,72 @@ public class Board {
                     //kinging a piece that reaches the end of the board
                     if(c.getColour() == Colour.RED && c.getPos().y == 7){
                         c.king();
-                        m.setScore(2);
+                        m.setScore(1);
                         break;      //once kinged move ends
                     }else if(c.getColour() == Colour.BLACK && c.getPos().y == 0){
                         c.king();
-                        m.setScore(2);
+                        m.setScore(1);
                         break;
                     }
                 }
             }
+            //remove pieces due to dead pieces messing up capturing
+            //bad practice as prevents reverting a move
+            pieces.remove(toRemove);
+            System.out.println("piece moved");
             updateBoard();
         }else{
-            print("oops, looks like thats not a valid move!");
+            print("oops, looks like " + mov.getStart().toString() + mov.getEnd().toString()  + " not a valid move!");
             System.exit(1);         //Invalid move, break and throw some sort of error
         }
     }   
+    
+    public void undoMove(Move m, Colour team1){
+        for(Checker c : m.getTaken()){
+            this.pieces.add(c);     //add the pieces that were taken back to list
+        }
+        
+        for(Checker c : pieces){
+            //get the checker thats at the end of the move
+            if(c.getPos().x == m.getEnd().x && c.getPos().y == m.getEnd().y && c.alive){
+                //move it back to the start
+                c.move(m.getStart());
+            }
+        } 
+    }
+    
+            
+    //dosent work for kings or multi moves re-write
+    public void undoMove2(Move m, Colour team1){
+        Colour team2 = Colour.BLACK;
+        if(team1 == Colour.BLACK){
+            team2 = Colour.RED;
+        }
+        Checker takenC = new Checker(null, null);
+        
+        for(Checker c : pieces){
+            //get the checker thats at the end of the move
+            if(c.getPos().x == m.getEnd().x && c.getPos().y == m.getEnd().y && c.alive){
+                //move it back to the start
+                c.move(m.getStart());
+                //check to see if a piece was take during the move
+                if(m.getTake() ==  true){
+                        //pos p = halfway between start and end pos
+                        int x = m.getStart().x + m.getEnd().x;
+                        int y = m.getStart().y + m.getEnd().y;
+                        Position p = new Position(x/2, y/2);
+                        //make a new chcker of opposite team at pos p
+                        takenC.move(p);
+                        takenC.setColour(team2);
+                        //if the piece was a king???
+                }
+            }
+        }
+        //add it back to the array of pieces
+        if(!(takenC.getColour() == null)){
+            pieces.add(takenC);
+        }
+    }
     
     //Check that the start location corrisponds to a piece and the piece is alive.
     //check that the end move is on an available space (clear and valid)
@@ -118,9 +176,14 @@ public class Board {
     public boolean validateMove(Move m, Colour team){
         for(Checker c : pieces){
             if(c.getPos().x == m.getStart().x && c.getPos().y == m.getStart().y && c.isAlive() && c.getColour() == team){
+                System.out.println("break11");
                 for(Move mov : this.allMoves){
+                    System.out.println("break12");
+                    System.out.println(mov.getStart().toString() + mov.getEnd().toString());
                     if(mov.getStart().x == m.getStart().x && mov.getStart().y == m.getStart().y){   //start move is valid
+                        System.out.println("break13");
                         if(mov.getEnd().x == m.getEnd().x && mov.getEnd().y == m.getEnd().y){   //end move is valid
+                            System.out.println("break14");
                             return(true); 
                         }
                     }
@@ -351,25 +414,20 @@ public class Board {
                 if(piece.getPos().x == lMoveUp.x && piece.getPos().y == lMoveUp.y && c.isAlive()){   //if location is occupied
                     lUp = false;                                                                     //set position to false 
                     if(!piece.getColour().equals(c.getColour())){   //check to see if blocking piece is from other team
-                        print("break0.5");
                         takeL = true;
                         for(Checker piece2 : pieces){
                             if((piece2.getPos().x == (lMoveUp.x - 1) && piece2.getPos().y == (lMoveUp.y + 1)) && piece2.isAlive()){    
                                 //no free space, cannot take
-                                takeL = false; 
-                                //print("break1");
                                 break;      //exit the if statment as no take possible 
                             }else{          //TO DO remove this else as no longer used?
                                 //free space behind, take available
-                                //print("break2.5");
                                 takeL = true;         //signal that a piece can be taken, 
                             }
                         }
                     }
                 }else if(piece.getPos().x == rMoveUp.x && piece.getPos().y == rMoveUp.y && c.isAlive()){
                     rUp = false; 
-                    if(!piece.getColour().equals(c.getColour())){   //check to see if blocking piece is from other team
-                        takeR = true;                         
+                    if(!piece.getColour().equals(c.getColour())){   //check to see if blocking piece is from other team                  
                         for(Checker piece2 : pieces){
                             if(piece2.getPos().x == rMoveUp.x+1 && piece2.getPos().y == rMoveUp.y+1 && piece2.isAlive()){    
                                 //no free space, cannot take
@@ -385,7 +443,6 @@ public class Board {
                     lDn = false; 
                     if(!piece.getColour().equals(c.getColour())){          
                         for(Checker piece2 : pieces){
-                            takeL2 = true;
                             if(piece2.getPos().x == lMoveDn.x-1 && piece2.getPos().y == lMoveDn.y-1 && piece2.isAlive()){
                                 //no free space, cannot take
                                 takeL2 = false; 
@@ -400,7 +457,6 @@ public class Board {
                     rDn = false;  
                     if(!piece.getColour().equals(c.getColour())){   //check to see if blocking piece is from other team
                         for(Checker piece2 : pieces){
-                            takeR2 = true;
                             if(piece2.getPos().x == rMoveDn.x+1 && piece2.getPos().y == rMoveDn.y-1 && piece2.isAlive()){    
                                 //no free space, cannot take
                                 takeR2 = false; 
@@ -463,7 +519,6 @@ public class Board {
                     lDn = false; 
                     if(!piece.getColour().equals(c.getColour())){          
                         for(Checker piece2 : pieces){
-                            takeL = true;
                             if(piece2.getPos().x == lMoveDn.x-1 && piece2.getPos().y == lMoveDn.y-1 && piece2.isAlive()){
                                 //no free space, cannot take
                                 takeL = false; 
@@ -478,7 +533,6 @@ public class Board {
                     rDn = false;  
                     if(!piece.getColour().equals(c.getColour())){   //check to see if blocking piece is from other team
                         for(Checker piece2 : pieces){
-                            takeR = true;
                             if(piece2.getPos().x == rMoveDn.x+1 && piece2.getPos().y == rMoveDn.y-1 && piece2.isAlive()){    
                                 //no free space, cannot take
                                 takeR = false; 
@@ -517,8 +571,6 @@ public class Board {
                 if(piece.getPos().x == lMoveUp.x && piece.getPos().y == lMoveUp.y && c.isAlive()){   //if location is occupied
                     lUp = false;                                                                     //set position to false 
                     if(!piece.getColour().equals(c.getColour())){   //check to see if blocking piece is from other team
-                        print("break0.5");
-                        takeL = true;
                         for(Checker piece2 : pieces){
                             if((piece2.getPos().x == (lMoveUp.x - 1) && piece2.getPos().y == (lMoveUp.y + 1)) && piece2.isAlive()){    
                                 //no free space, cannot take
@@ -534,8 +586,7 @@ public class Board {
                     }
                 }else if(piece.getPos().x == rMoveUp.x && piece.getPos().y == rMoveUp.y && c.isAlive()){
                     rUp = false; 
-                    if(!piece.getColour().equals(c.getColour())){   //check to see if blocking piece is from other team
-                        takeR = true;                         
+                    if(!piece.getColour().equals(c.getColour())){   //check to see if blocking piece is from other team                      
                         for(Checker piece2 : pieces){
                             if(piece2.getPos().x == rMoveUp.x+1 && piece2.getPos().y == rMoveUp.y+1 && piece2.isAlive()){    
                                 //no free space, cannot take
@@ -557,9 +608,7 @@ public class Board {
                 lMoveUp.y +=1;
                 Move m = new Move(c.getPos(), lMoveUp);
                 m.setTake();
-                availableMoves.add(m);  //TO DO add this line elsewhere king
-                //print(m.getEnd().toString());
-                //print("break3");
+                availableMoves.add(m); 
             }     
 
             if(rUp){
