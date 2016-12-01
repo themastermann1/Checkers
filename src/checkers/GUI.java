@@ -1318,7 +1318,7 @@ public class GUI extends javax.swing.JFrame {
 
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
         clearText();
-        
+        jPanel1.add(new posListner());
     }//GEN-LAST:event_jPanel1MouseClicked
     
     /*
@@ -1333,6 +1333,16 @@ public class GUI extends javax.swing.JFrame {
      }
     });
     */
+
+    
+    class posListner implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            setText("test");
+        }
+    }
+
+    
     //read up more on implementing listeners and events...
     
     
