@@ -103,7 +103,6 @@ public class MiniMax {
             return(0);
         }
         System.out.println("break");
-        clone.getAllAvailableMoves(p.getTeam());
         for(Move m : clone.allMoves){
             System.out.println("break1");
             if(p.getTeam() == Colour.RED){      
@@ -141,7 +140,7 @@ public class MiniMax {
             }
             //make sure these moves are not on real board...
             //reset the last move made
-            //resetClone();
+            clone.undoMove(m, p.getTeam());
             
             //prune bad leafs
             if(a >= b){

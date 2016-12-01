@@ -325,6 +325,7 @@ public class Board {
     
     //returns a list of moves available for the passed checker
     //messy AF, refactor.
+    //make work for multi jumps
     public ArrayList<Move> getAvailableMoves(Checker c){
         ArrayList<Move> availableMoves = new ArrayList<>();
         Position p = c.getPos();
