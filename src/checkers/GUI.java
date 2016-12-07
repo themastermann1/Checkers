@@ -26,14 +26,23 @@ import javax.swing.JPanel;
  */
 public class GUI extends javax.swing.JFrame {
 
-    int[][] board = new int[8][8];    //encoding of the pieces.
+    Board board = new Board();    //encoding of the pieces.
     ArrayList<JPanel> guiBoard = new ArrayList<>();
     Position pos1 = new Position(-1, -1);
     Position pos2 = new Position(-1, -1);
     Boolean firstMove = true;
     Move currentMove = new Move(pos1, pos2);
     
+    //setting up the players
+    Player p1 = new Player();
+    Player p2 = new Player();
+   
+    int playerPos = -1;
+    int turnCount = 0;
     
+    int newGamePlayerPos = -1;
+    Difficulty newGameDifficulty = Difficulty.BABY;
+      
     /**
      * Creates new form GUI
      */
@@ -42,7 +51,7 @@ public class GUI extends javax.swing.JFrame {
         initGuiBoard();
         setVisible(true);
     }
-
+    
     /**
      * This method is called from within the constructor to initialise the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -53,6 +62,7 @@ public class GUI extends javax.swing.JFrame {
     private void initComponents() {
 
         DifficultySelect = new javax.swing.ButtonGroup();
+        playerPosition = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -118,7 +128,6 @@ public class GUI extends javax.swing.JFrame {
         jPanel63 = new javax.swing.JPanel();
         jPanel64 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        input = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         display = new javax.swing.JTextArea();
         newGame = new javax.swing.JButton();
@@ -127,6 +136,11 @@ public class GUI extends javax.swing.JFrame {
         diff3 = new javax.swing.JRadioButton();
         diff4 = new javax.swing.JRadioButton();
         diff5 = new javax.swing.JRadioButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jRadioButton3 = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -1186,7 +1200,7 @@ public class GUI extends javax.swing.JFrame {
             .addGap(0, 60, Short.MAX_VALUE)
         );
 
-        jLabel1.setText("jLabel1");
+        jLabel1.setText("Difficulty:");
 
         display.setEditable(false);
         display.setColumns(20);
@@ -1202,20 +1216,76 @@ public class GUI extends javax.swing.JFrame {
         });
 
         DifficultySelect.add(diff1);
+        diff1.setSelected(true);
         diff1.setLabel("Easy");
+        diff1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                diff1ActionPerformed(evt);
+            }
+        });
 
         DifficultySelect.add(diff2);
         diff2.setLabel("Normal");
+        diff2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                diff2ActionPerformed(evt);
+            }
+        });
 
         DifficultySelect.add(diff3);
         diff3.setLabel("Hard");
         diff3.setRolloverEnabled(false);
+        diff3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                diff3ActionPerformed(evt);
+            }
+        });
 
         DifficultySelect.add(diff4);
         diff4.setLabel("Very Hard");
+        diff4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                diff4ActionPerformed(evt);
+            }
+        });
 
         DifficultySelect.add(diff5);
         diff5.setLabel("Professional");
+        diff5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                diff5ActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel2.setText("Game Settings");
+
+        jLabel3.setText("Colour:");
+
+        playerPosition.add(jRadioButton1);
+        jRadioButton1.setText("Human Black, AI Red");
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
+
+        playerPosition.add(jRadioButton2);
+        jRadioButton2.setText("Human Red, AI Black");
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton2ActionPerformed(evt);
+            }
+        });
+
+        playerPosition.add(jRadioButton3);
+        jRadioButton3.setSelected(true);
+        jRadioButton3.setText("Human vs Human");
+        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1356,71 +1426,99 @@ public class GUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(input, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(0, 398, Short.MAX_VALUE)))
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(diff1)
-                            .addComponent(newGame))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(newGame, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(diff3)
-                            .addComponent(diff2))
-                        .addGap(76, 76, 76)
+                            .addComponent(diff2)
+                            .addComponent(diff4)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel1)
+                                .addComponent(diff1))
+                            .addComponent(diff5))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(diff5)
-                            .addComponent(diff4))
-                        .addGap(67, 67, 67))))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jRadioButton1)
+                                    .addComponent(jRadioButton2)
+                                    .addComponent(jRadioButton3))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPanel64, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel63, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel62, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel61, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel60, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel59, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel58, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel57, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPanel56, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel55, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel54, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel52, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel51, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel50, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel49, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPanel48, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel47, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel46, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel45, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel44, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel43, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel42, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel41, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPanel40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel39, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel38, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel37, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel35, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jPanel64, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPanel63, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPanel62, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPanel61, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPanel60, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPanel59, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPanel58, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPanel57, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jPanel56, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPanel55, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPanel54, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPanel52, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPanel51, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPanel50, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPanel49, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jPanel48, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPanel47, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPanel46, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPanel45, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPanel44, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPanel43, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPanel42, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPanel41, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jPanel40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPanel39, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPanel38, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPanel37, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPanel36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPanel35, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPanel33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel3))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(diff1)
+                                    .addComponent(jRadioButton1))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(diff2)
+                                    .addComponent(jRadioButton2))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(diff3)
+                                    .addComponent(jRadioButton3))
+                                .addGap(18, 18, 18)
+                                .addComponent(diff4)
+                                .addGap(18, 18, 18)
+                                .addComponent(diff5)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1440,43 +1538,28 @@ public class GUI extends javax.swing.JFrame {
                             .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(input, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(newGame)
-                            .addComponent(diff2)
-                            .addComponent(diff4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(diff1)
-                            .addComponent(diff3)
-                            .addComponent(diff5))))
+                            .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(newGame, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
@@ -1486,177 +1569,314 @@ public class GUI extends javax.swing.JFrame {
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
         clearText();
         setText("1");
+        Position p = new Position(0,0);
+        getMove(p);
     }//GEN-LAST:event_jPanel1MouseClicked
 
     private void jPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseClicked
         clearText();
         setText("3");
+        Position p = new Position(2,0);
+        getMove(p);              
     }//GEN-LAST:event_jPanel3MouseClicked
 
     private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
         clearText();
         setText("5");
+        Position p = new Position(4,0);
+        getMove(p);  
     }//GEN-LAST:event_jPanel5MouseClicked
 
     private void jPanel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel7MouseClicked
         clearText();
         setText("7");
+        Position p = new Position(6,0);
+        getMove(p);  
     }//GEN-LAST:event_jPanel7MouseClicked
 
     private void jPanel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel10MouseClicked
         clearText();
         setText("10");
+        Position p = new Position(1,1);
+        getMove(p);
     }//GEN-LAST:event_jPanel10MouseClicked
 
     private void jPanel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel12MouseClicked
         clearText();
         setText("12");
+        Position p = new Position(3,1);
+        getMove(p);
     }//GEN-LAST:event_jPanel12MouseClicked
 
     private void jPanel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel14MouseClicked
         clearText();
         setText("14");
+        Position p = new Position(5,1);
+        getMove(p);
     }//GEN-LAST:event_jPanel14MouseClicked
 
     private void jPanel16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel16MouseClicked
        clearText();
         setText("16");
+        Position p = new Position(7,1);
+        getMove(p);
     }//GEN-LAST:event_jPanel16MouseClicked
 
     private void jPanel17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel17MouseClicked
         clearText();
         setText("17");
+        Position p = new Position(0,2);
+        getMove(p);
     }//GEN-LAST:event_jPanel17MouseClicked
 
     private void jPanel19MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel19MouseClicked
         clearText();
         setText("19");
+        Position p = new Position(2,2);
+        getMove(p);
     }//GEN-LAST:event_jPanel19MouseClicked
 
     private void jPanel21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel21MouseClicked
         clearText();
         setText("21");
+        Position p = new Position(4,2);
+        getMove(p);
     }//GEN-LAST:event_jPanel21MouseClicked
 
     private void jPanel23MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel23MouseClicked
         clearText();
         setText("23");
+        Position p = new Position(6,2);
+        getMove(p);
     }//GEN-LAST:event_jPanel23MouseClicked
 
     private void jPanel26MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel26MouseClicked
         clearText();
         setText("26");
+        Position p = new Position(1,3);
+        getMove(p);
     }//GEN-LAST:event_jPanel26MouseClicked
 
     private void jPanel28MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel28MouseClicked
        clearText();
         setText("28");
+        Position p = new Position(3,3);
+        getMove(p);
     }//GEN-LAST:event_jPanel28MouseClicked
 
     private void jPanel30MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel30MouseClicked
         clearText();
         setText("30");
+        Position p = new Position(5,3);
+        getMove(p);
     }//GEN-LAST:event_jPanel30MouseClicked
 
     private void jPanel32MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel32MouseClicked
         clearText();
         setText("32");
+        Position p = new Position(7,3);
+        getMove(p);
     }//GEN-LAST:event_jPanel32MouseClicked
 
     private void jPanel33MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel33MouseClicked
         clearText();
         setText("33");
+        Position p = new Position(0,4);
+        getMove(p);
     }//GEN-LAST:event_jPanel33MouseClicked
 
     private void jPanel35MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel35MouseClicked
         clearText();
         setText("35");
+        Position p = new Position(2,4);
+        getMove(p);
     }//GEN-LAST:event_jPanel35MouseClicked
 
     private void jPanel37MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel37MouseClicked
         clearText();
         setText("37");
+        Position p = new Position(4,4);
+        getMove(p);
     }//GEN-LAST:event_jPanel37MouseClicked
 
     private void jPanel39MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel39MouseClicked
         clearText();
-        setText("7");
+        setText("39");
+        Position p = new Position(6,4);
+        getMove(p);
     }//GEN-LAST:event_jPanel39MouseClicked
 
     private void jPanel42MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel42MouseClicked
         clearText();
         setText("42");
+        Position p = new Position(1,5);
+        getMove(p);
     }//GEN-LAST:event_jPanel42MouseClicked
 
     private void jPanel44MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel44MouseClicked
         clearText();
         setText("44");
+        Position p = new Position(3,5);
+        getMove(p);
     }//GEN-LAST:event_jPanel44MouseClicked
 
     private void jPanel46MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel46MouseClicked
         clearText();
         setText("46");
+        Position p = new Position(5,5);
+        getMove(p);
     }//GEN-LAST:event_jPanel46MouseClicked
 
     private void jPanel48MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel48MouseClicked
        clearText();
         setText("48");
+        Position p = new Position(7,5);
+        getMove(p);
     }//GEN-LAST:event_jPanel48MouseClicked
 
     private void jPanel49MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel49MouseClicked
         clearText();
         setText("49");
+        Position p = new Position(0,6);
+        getMove(p);
     }//GEN-LAST:event_jPanel49MouseClicked
 
     private void jPanel51MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel51MouseClicked
         clearText();
         setText("51");
+        Position p = new Position(2,6);
+        getMove(p);
     }//GEN-LAST:event_jPanel51MouseClicked
 
     private void jPanel53MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel53MouseClicked
       clearText();
         setText("53");
+        Position p = new Position(4,6);
+        getMove(p);
     }//GEN-LAST:event_jPanel53MouseClicked
 
     private void jPanel55MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel55MouseClicked
        clearText();
         setText("55");
+        Position p = new Position(6,6);
+        getMove(p);
     }//GEN-LAST:event_jPanel55MouseClicked
 
     private void jPanel58MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel58MouseClicked
         clearText();
         setText("58");
+        Position p = new Position(1,7);
+        getMove(p);
     }//GEN-LAST:event_jPanel58MouseClicked
 
     private void jPanel60MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel60MouseClicked
         clearText();
         setText("60");
+        Position p = new Position(3,7);
+        getMove(p);
     }//GEN-LAST:event_jPanel60MouseClicked
 
     private void jPanel62MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel62MouseClicked
         clearText();
         setText("62");
+        Position p = new Position(5,7);
+        getMove(p);
     }//GEN-LAST:event_jPanel62MouseClicked
 
     private void jPanel64MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel64MouseClicked
         clearText();
         setText("64");
+        Position p = new Position(7,7);
+        getMove(p);
     }//GEN-LAST:event_jPanel64MouseClicked
 
+    //action for pressing new game button
     private void newGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newGameActionPerformed
         clearText();
         setText("New Game");
         
-        Component[] components = jPanel1.getComponents();
-        
-        components[0].setVisible(false);
-        
-        //jPanel1.setVisible(false);
-        jPanel1.validate();
-        jPanel1.repaint();
+        //actual code:
+        resetGame();
     }//GEN-LAST:event_newGameActionPerformed
+
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+        this.newGamePlayerPos = 2;
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+        this.newGamePlayerPos = 1;
+    }//GEN-LAST:event_jRadioButton2ActionPerformed
+
+    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
+        this.newGamePlayerPos = 3;
+    }//GEN-LAST:event_jRadioButton3ActionPerformed
+
+    private void diff1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diff1ActionPerformed
+        this.newGameDifficulty = Difficulty.BABY;
+    }//GEN-LAST:event_diff1ActionPerformed
+
+    private void diff2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diff2ActionPerformed
+        this.newGameDifficulty = Difficulty.EASY;
+    }//GEN-LAST:event_diff2ActionPerformed
+
+    private void diff3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diff3ActionPerformed
+        this.newGameDifficulty = Difficulty.HARD;
+    }//GEN-LAST:event_diff3ActionPerformed
+
+    private void diff4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diff4ActionPerformed
+        this.newGameDifficulty = Difficulty.SUICIDAL;
+    }//GEN-LAST:event_diff4ActionPerformed
+
+    private void diff5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diff5ActionPerformed
+        this.newGameDifficulty = Difficulty.HELL_ON_EARTH;
+    }//GEN-LAST:event_diff5ActionPerformed
     
     
+    public void runGame(int pPos){
+        Colour winner = Colour.RED;
+        this.playerPos = pPos;
+        p1.setTeam(Colour.BLACK);
+        p1.setName("Player1");
+        p1.setDifficulty(Difficulty.BABY);
+        p2.setTeam(Colour.RED);
+        p2.setName("Player2");
+        p2.setDifficulty(Difficulty.BABY);
+        
+        //setting which player goes first
+        if (playerPos == 1){
+            p1.setController(Controller.AI);
+            p2.setController(Controller.HUMAN);
+        }else if(playerPos == 2){
+            p2.setController(Controller.HUMAN);
+            p1.setController(Controller.AI);
+        }else if(playerPos == 3){
+            p2.setController(Controller.HUMAN);
+            p1.setController(Controller.HUMAN);
+        }
+        
+        board.displayBoard();
+        printBoard(board.getBoard());
+        //move the player selection out of main loop, have it so if AI is first it takes a move first then loop enters as standard.
+        
+        //dispaly winning / defeat message
+        if(p1.getTeam() == winner){
+            //print("Player: " + p1.getName() + " Takes the game!");
+        } else {
+            //print("Player: " + p2.getName() + " Wins the match!");
+        }
+    }    
+    
+    //depreciated?
+    private static String getUserInput(){
+        //get difficulty from the raidio buttons
+        //set player names to represent ai/human -make them dynamic later
+
+        
+        return("1");
+    }
+
+
+    //???? test class
     class posListner implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -1674,6 +1894,175 @@ public class GUI extends javax.swing.JFrame {
     */
     //read up more on implementing listeners and events...
     
+    //sets current move
+    public void getMove(Position pos){
+        if(firstMove){
+            //this is the first pos of the move
+            pos1 = pos;
+            firstMove = false;            
+            
+        }else if (firstMove == false){
+            //this is the second move
+            pos2 = pos;
+            Move m = new Move(pos1, pos2);
+            currentMove = m;
+            setText(pos1.toString() + pos2.toString());
+            makeMove();
+            firstMove = true;
+        } 
+    }
+    
+    //works out whos turn it is and makes there move
+    public void makeMove(){
+        //get AI's move then make the humans move
+            if(playerPos == 1){
+                MiniMax mini = new MiniMax(board, p1);
+                System.out.println("score" + mini.evalBoard());
+                Move move = mini.getBestMove();
+                board.movePiece(move, p1.getTeam());
+                
+                board.displayBoard();
+                printBoard(board.getBoard());
+                //check to see if the game is over
+                if (board.gameOver(p2.getTeam())) {  
+                    //winner = (p2.getTeam());
+                    //break;
+                } 
+                //print("Its your turn " + p2.getName() + " make your move!!!");
+                //print("(x,y)");
+                board.humanTurn(p2, currentMove);
+                board.displayBoard();
+                printBoard(board.getBoard());
+                
+            //get the human move then make an AI move
+            }else if (playerPos == 2){
+                //print("Its your turn " + p1.getName() + " make your move!!!");
+                //print("(x,y)");
+                board.humanTurn(p1, currentMove);
+                board.displayBoard();
+                printBoard(board.getBoard());
+                //check to see if the game is over
+                if (board.gameOver(p2.getTeam())) {
+                    //winner = (p2.getTeam());
+                    //break;
+                } 
+                //print("The AI " + p2.getName() + " is making moves!");             
+                board.AITurn(p2);
+                board.displayBoard();
+                printBoard(board.getBoard());
+                
+            //get a human move and the change colour for next human move
+            }else if(playerPos == 3){
+                if(turnCount % 2 == 0){                 //player 1
+                    board.humanTurn(p1, currentMove);
+                    board.displayBoard();
+                    printBoard(board.getBoard());
+                //check to see if the game is over
+                }else{                                  //player 2
+                    board.humanTurn(p2, currentMove);                
+                    board.displayBoard();
+                    printBoard(board.getBoard());
+                }
+                if (board.gameOver(p2.getTeam())) {
+                    //winner = (p2.getTeam());
+                    //break;
+                } 
+            }
+            turnCount++;
+    }
+    
+    //reset everything needed for a new game to start
+    public void resetGame(){
+        board = new Board();    //encoding of the pieces.
+        guiBoard = new ArrayList<>();   //what does this even do?
+        pos1 = new Position(-1, -1);
+        pos2 = new Position(-1, -1);
+        firstMove = true;
+        currentMove = new Move(pos1, pos2);
+        turnCount= 0;
+        p1 = new Player();
+        p2 = new Player();
+        
+
+        initGuiBoard();
+        setVisible(true);
+        runGame(3);
+        
+        initGuiBoard();
+        //guiBoard.remove(jPanel1);
+    }
+    
+    //prints the current board in the GUI. Call after every move is made.
+    public void printBoard(int[][] b){
+        for(int x =0; x<8; x++){
+            for(int y = 0; y<8; y++){
+                int i = (y * 8) + (x);
+                JPanel j = guiBoard.get(i);        //gets the correct jpanel    
+                if(b[x][y] == 1){
+                    try {
+                        j.removeAll();      //clear out the panel
+                        BufferedImage myPicture = ImageIO.read(getClass().getResource("BlackChecker.png"));
+                        JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+                        //picLabel.setBounds(0,0, 60,60);
+                        j.setLayout(new FlowLayout());
+                        j.add(picLabel);      //add the picture - needs to be added to the correct jPanel
+                        j.validate();
+                        j.repaint();
+                    } catch (IOException ex) {
+                        Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                     
+                    // pieces belonging to player 2 get an r (red)
+                }else if(b[x][y] == 2) {
+                    try {
+                        j.removeAll();      //clear out the panel
+                        BufferedImage myPicture = ImageIO.read(getClass().getResource("RedChecker.png"));
+                        JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+                        //picLabel.setBounds(0,0, 60,60);
+                        j.setLayout(new FlowLayout());
+                        j.add(picLabel);      //add the picture - needs to be added to the correct jPanel
+                        j.validate();
+                        j.repaint();
+                    } catch (IOException ex) {
+                        Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    // kings belonging to player 1 get an B (Black)
+                }else if(b[x][y] == 3){
+                    try {
+                        j.removeAll();      //clear out the panel
+                        BufferedImage myPicture = ImageIO.read(getClass().getResource("BlackCheckerK.png"));
+                        JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+                        //picLabel.setBounds(0,0, 60,60);
+                        j.setLayout(new FlowLayout());
+                        j.add(picLabel);      //add the picture - needs to be added to the correct jPanel
+                        j.validate();
+                        j.repaint();
+                    } catch (IOException ex) {
+                        Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    // kings belonging to player 2 get an R (Red)
+                }else if(b[x][y] == 4) {
+                    try {
+                        j.removeAll();      //clear out the panel
+                        BufferedImage myPicture = ImageIO.read(getClass().getResource("RedCheckerK.png"));
+                        JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+                        //picLabel.setBounds(0,0, 60,60);
+                        j.setLayout(new FlowLayout());
+                        j.add(picLabel);      //add the picture - needs to be added to the correct jPanel
+                        j.validate();
+                        j.repaint();
+                    } catch (IOException ex) {
+                        Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }else{
+                    //empty panel
+                    j.removeAll();      //clear out the panel
+                    j.validate();
+                    j.repaint();
+                }
+            }
+        }
+    }
     
     public void setText(String s){
         display.append("\n" + s);  
@@ -1684,37 +2073,13 @@ public class GUI extends javax.swing.JFrame {
     }
     
     public String getText(){
-        EventTest();
-        return(input.getText());       
+        //return(input.getText());     
+        return("");
     }
     
-    //sets current move
-    public void movePiece(Position pos){
-        if(firstMove){
-            //this is the first pos of the move
-            Position pos1 = pos;
-            firstMove = false;            
-            
-        }else if (firstMove == false){
-            //this is the second move
-            Position pos2 = pos;
-            Move m = new Move(pos1, pos2);
-            currentMove = m;
-            
-        } 
-    }
     
-    //reset everything needed for a new game to start
-    public void resetGame(){
-        board = new int[8][8];    //encoding of the pieces.
-        guiBoard = new ArrayList<>();
-        pos1 = new Position(-1, -1);
-        pos2 = new Position(-1, -1);
-        firstMove = true;
-        currentMove = new Move(pos1, pos2);
-        initGuiBoard();
-        //guiBoard.remove(jPanel1);
-    }
+    
+   
     
     //pupulate guiBoard with all the panels that make it up.
     public void initGuiBoard(){
@@ -1783,120 +2148,7 @@ public class GUI extends javax.swing.JFrame {
         guiBoard.add(jPanel63);
         guiBoard.add(jPanel64);
     }
-    
-    
-    public void getUserInput(){
-        
-    }
-    
-    public void setBoard(int[][] b){
-        this.board = b;
-    }
-    
-    public void printBoard(){
-        for(int x =0; x<8; x++){
-            for(int y = 0; y<8; y++){
-                int i = (y * 8) + (x);
-                JPanel j = guiBoard.get(i);        //gets the correct jpanel    
-                if(board[x][y] == 1){
-                    try {
-                        j.removeAll();      //clear out the panel
-                        BufferedImage myPicture = ImageIO.read(getClass().getResource("BlackChecker.png"));
-                        JLabel picLabel = new JLabel(new ImageIcon(myPicture));
-                        //picLabel.setBounds(0,0, 60,60);
-                        j.setLayout(new FlowLayout());
-                        j.add(picLabel);      //add the picture - needs to be added to the correct jPanel
-                        j.validate();
-                        j.repaint();
-                    } catch (IOException ex) {
-                        Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                     
-                    // pieces belonging to player 2 get an r (red)
-                }else if(board[x][y] == 2) {
-                    try {
-                        j.removeAll();      //clear out the panel
-                        BufferedImage myPicture = ImageIO.read(getClass().getResource("RedChecker.png"));
-                        JLabel picLabel = new JLabel(new ImageIcon(myPicture));
-                        //picLabel.setBounds(0,0, 60,60);
-                        j.setLayout(new FlowLayout());
-                        j.add(picLabel);      //add the picture - needs to be added to the correct jPanel
-                        j.validate();
-                        j.repaint();
-                    } catch (IOException ex) {
-                        Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    // kings belonging to player 1 get an B (Black)
-                }else if(board[x][y] == 3){
-                    try {
-                        j.removeAll();      //clear out the panel
-                        BufferedImage myPicture = ImageIO.read(getClass().getResource("BlackCheckerK.png"));
-                        JLabel picLabel = new JLabel(new ImageIcon(myPicture));
-                        //picLabel.setBounds(0,0, 60,60);
-                        j.setLayout(new FlowLayout());
-                        j.add(picLabel);      //add the picture - needs to be added to the correct jPanel
-                        j.validate();
-                        j.repaint();
-                    } catch (IOException ex) {
-                        Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    // kings belonging to player 2 get an R (Red)
-                }else if(board[x][y] == 4) {
-                    try {
-                        j.removeAll();      //clear out the panel
-                        BufferedImage myPicture = ImageIO.read(getClass().getResource("RedCheckerK.png"));
-                        JLabel picLabel = new JLabel(new ImageIcon(myPicture));
-                        //picLabel.setBounds(0,0, 60,60);
-                        j.setLayout(new FlowLayout());
-                        j.add(picLabel);      //add the picture - needs to be added to the correct jPanel
-                        j.validate();
-                        j.repaint();
-                    } catch (IOException ex) {
-                        Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }else{
-                    //empty panel
-                    j.removeAll();      //clear out the panel
-                    j.validate();
-                    j.repaint();
-                }
-            }
-        }
-    }
-    
-    
-    
-    public void EventTest(){
-        String s = input.getText();
-        int i;
-        try{
-            i = (Integer.parseInt(s));
-            if(i == 1){
-                input.setActionCommand("1"); 
-            }else if(s.equals("2")){
-                input.setActionCommand("2"); 
-            }else{
-                input.setActionCommand("Quit"); 
-            }
-            input.addActionListener(new teamListener());
-        
-        }catch(Exception e){    //change this to a better exception?
-            //System.exit(1);     //non zero exit argument, consider adding something that uses this. 
-        }
-    }
-    
-    public class teamListener implements ActionListener{
-        public void actionPerformed(ActionEvent e) {
-        String command = e.getActionCommand();  
-        if( command.equals( "1" ))  {
-            jLabel1.setText("Black");
-        }else if(command.equals( "2" )){
-            jLabel1.setText("Red");
-        }else{
-            jLabel1.setText("EXIT");
-        }	
-      }	
-    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup DifficultySelect;
@@ -1906,8 +2158,9 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JRadioButton diff4;
     private javax.swing.JRadioButton diff5;
     private javax.swing.JTextArea display;
-    private javax.swing.JTextField input;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     public javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -1972,7 +2225,11 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton newGame;
+    private javax.swing.ButtonGroup playerPosition;
     // End of variables declaration//GEN-END:variables
 }

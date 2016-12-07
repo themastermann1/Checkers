@@ -47,17 +47,12 @@ public class Board {
     }
     
     //fill this out
-    public void humanTurn(Player human){
-        print("Pick the piece you want to move");
-        Position moveStart = getUserMove();
-        print(moveStart.toString());
+    public void humanTurn(Player human, Move humanMove){
+        Move m = humanMove;
         
-        print("Pick the location you want to move to");
-        Position moveEnd = getUserMove();
-        print(moveEnd.toString());
-        
-        Move m = new Move(moveStart, moveEnd);
-        
+        print(humanMove.getStart().toString());    
+        print(humanMove.getEnd().toString());
+        getAllAvailableMoves(human.getTeam());
         movePiece(m, human.getTeam());
     }
     
@@ -120,6 +115,7 @@ public class Board {
         }
     }   
     
+    //test me
     public void undoMove(Move m, Colour team1){
         for(Checker c : m.getTaken()){
             this.pieces.add(c);     //add the pieces that were taken back to list
@@ -157,16 +153,6 @@ public class Board {
         //System.exit(0);
         print("break0");
         return(false); 
-    }
-    
-    //get move coordinates from the user, return as a Position
-    private static Position getUserMove(){
-        //scanner
-        Scanner scanner = new Scanner(System.in);
-        int xin = scanner.nextInt()-1;      //adjust for 0 index
-        int yin = scanner.nextInt()-1;
-        Position p = new Position(xin, yin);
-        return(p);
     }
     
     //print the board to the console
@@ -606,10 +592,6 @@ public class Board {
             return true;
         }
         return false;
-    }
-    
-    //REDUNDANT?
-    public void miniMax(int depth, Player p){
     }
 
     public ArrayList<Checker> getPieces(){
