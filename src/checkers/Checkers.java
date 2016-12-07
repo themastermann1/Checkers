@@ -131,7 +131,7 @@ public class Checkers {
         gui.setText("Enter 1 to pick black and move first, or 2 to pick red and go second.");
         gui.setText("Alternativly type \"Quit\" to close the program: ");
         String in = gui.getText();
-        in= "1";
+        in= "2";
         if(in.equals("Quit")){
             print("So long... Thanks for all the fish!!!");
             //quit the program

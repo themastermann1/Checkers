@@ -5,6 +5,7 @@
  */
 package checkers;
 
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,6 +28,11 @@ public class GUI extends javax.swing.JFrame {
 
     int[][] board = new int[8][8];    //encoding of the pieces.
     ArrayList<JPanel> guiBoard = new ArrayList<>();
+    Position pos1 = new Position(-1, -1);
+    Position pos2 = new Position(-1, -1);
+    Boolean firstMove = true;
+    Move currentMove = new Move(pos1, pos2);
+    
     
     /**
      * Creates new form GUI
@@ -159,6 +165,11 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(102, 102, 102));
         jPanel3.setPreferredSize(new java.awt.Dimension(60, 60));
+        jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel3MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -187,6 +198,11 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel5.setBackground(new java.awt.Color(102, 102, 102));
         jPanel5.setPreferredSize(new java.awt.Dimension(60, 60));
+        jPanel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel5MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -215,6 +231,11 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel7.setBackground(new java.awt.Color(102, 102, 102));
         jPanel7.setPreferredSize(new java.awt.Dimension(60, 60));
+        jPanel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel7MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -257,6 +278,11 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel10.setBackground(new java.awt.Color(102, 102, 102));
         jPanel10.setPreferredSize(new java.awt.Dimension(60, 60));
+        jPanel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel10MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -285,6 +311,11 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel12.setBackground(new java.awt.Color(102, 102, 102));
         jPanel12.setPreferredSize(new java.awt.Dimension(60, 60));
+        jPanel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel12MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -313,6 +344,11 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel14.setBackground(new java.awt.Color(102, 102, 102));
         jPanel14.setPreferredSize(new java.awt.Dimension(60, 60));
+        jPanel14.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel14MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
@@ -341,6 +377,11 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel16.setBackground(new java.awt.Color(102, 102, 102));
         jPanel16.setPreferredSize(new java.awt.Dimension(60, 60));
+        jPanel16.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel16MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
         jPanel16.setLayout(jPanel16Layout);
@@ -355,6 +396,11 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel17.setBackground(new java.awt.Color(102, 102, 102));
         jPanel17.setPreferredSize(new java.awt.Dimension(60, 60));
+        jPanel17.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel17MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
         jPanel17.setLayout(jPanel17Layout);
@@ -383,6 +429,11 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel19.setBackground(new java.awt.Color(102, 102, 102));
         jPanel19.setPreferredSize(new java.awt.Dimension(60, 60));
+        jPanel19.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel19MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
         jPanel19.setLayout(jPanel19Layout);
@@ -411,6 +462,11 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel21.setBackground(new java.awt.Color(102, 102, 102));
         jPanel21.setPreferredSize(new java.awt.Dimension(60, 60));
+        jPanel21.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel21MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
         jPanel21.setLayout(jPanel21Layout);
@@ -439,6 +495,11 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel23.setBackground(new java.awt.Color(102, 102, 102));
         jPanel23.setPreferredSize(new java.awt.Dimension(60, 60));
+        jPanel23.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel23MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
         jPanel23.setLayout(jPanel23Layout);
@@ -481,6 +542,11 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel26.setBackground(new java.awt.Color(102, 102, 102));
         jPanel26.setPreferredSize(new java.awt.Dimension(60, 60));
+        jPanel26.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel26MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel26Layout = new javax.swing.GroupLayout(jPanel26);
         jPanel26.setLayout(jPanel26Layout);
@@ -509,6 +575,11 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel28.setBackground(new java.awt.Color(102, 102, 102));
         jPanel28.setPreferredSize(new java.awt.Dimension(60, 60));
+        jPanel28.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel28MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel28Layout = new javax.swing.GroupLayout(jPanel28);
         jPanel28.setLayout(jPanel28Layout);
@@ -537,6 +608,11 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel30.setBackground(new java.awt.Color(102, 102, 102));
         jPanel30.setPreferredSize(new java.awt.Dimension(60, 60));
+        jPanel30.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel30MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel30Layout = new javax.swing.GroupLayout(jPanel30);
         jPanel30.setLayout(jPanel30Layout);
@@ -565,6 +641,11 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel32.setBackground(new java.awt.Color(102, 102, 102));
         jPanel32.setPreferredSize(new java.awt.Dimension(60, 60));
+        jPanel32.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel32MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel32Layout = new javax.swing.GroupLayout(jPanel32);
         jPanel32.setLayout(jPanel32Layout);
@@ -579,6 +660,11 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel33.setBackground(new java.awt.Color(102, 102, 102));
         jPanel33.setPreferredSize(new java.awt.Dimension(60, 60));
+        jPanel33.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel33MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel33Layout = new javax.swing.GroupLayout(jPanel33);
         jPanel33.setLayout(jPanel33Layout);
@@ -607,6 +693,11 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel35.setBackground(new java.awt.Color(102, 102, 102));
         jPanel35.setPreferredSize(new java.awt.Dimension(60, 60));
+        jPanel35.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel35MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel35Layout = new javax.swing.GroupLayout(jPanel35);
         jPanel35.setLayout(jPanel35Layout);
@@ -635,6 +726,11 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel37.setBackground(new java.awt.Color(102, 102, 102));
         jPanel37.setPreferredSize(new java.awt.Dimension(60, 60));
+        jPanel37.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel37MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel37Layout = new javax.swing.GroupLayout(jPanel37);
         jPanel37.setLayout(jPanel37Layout);
@@ -663,6 +759,11 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel39.setBackground(new java.awt.Color(102, 102, 102));
         jPanel39.setPreferredSize(new java.awt.Dimension(60, 60));
+        jPanel39.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel39MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel39Layout = new javax.swing.GroupLayout(jPanel39);
         jPanel39.setLayout(jPanel39Layout);
@@ -705,6 +806,11 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel42.setBackground(new java.awt.Color(102, 102, 102));
         jPanel42.setPreferredSize(new java.awt.Dimension(60, 60));
+        jPanel42.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel42MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel42Layout = new javax.swing.GroupLayout(jPanel42);
         jPanel42.setLayout(jPanel42Layout);
@@ -733,6 +839,11 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel44.setBackground(new java.awt.Color(102, 102, 102));
         jPanel44.setPreferredSize(new java.awt.Dimension(60, 60));
+        jPanel44.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel44MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel44Layout = new javax.swing.GroupLayout(jPanel44);
         jPanel44.setLayout(jPanel44Layout);
@@ -761,6 +872,11 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel46.setBackground(new java.awt.Color(102, 102, 102));
         jPanel46.setPreferredSize(new java.awt.Dimension(60, 60));
+        jPanel46.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel46MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel46Layout = new javax.swing.GroupLayout(jPanel46);
         jPanel46.setLayout(jPanel46Layout);
@@ -789,6 +905,11 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel48.setBackground(new java.awt.Color(102, 102, 102));
         jPanel48.setPreferredSize(new java.awt.Dimension(60, 60));
+        jPanel48.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel48MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel48Layout = new javax.swing.GroupLayout(jPanel48);
         jPanel48.setLayout(jPanel48Layout);
@@ -803,6 +924,11 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel49.setBackground(new java.awt.Color(102, 102, 102));
         jPanel49.setPreferredSize(new java.awt.Dimension(60, 60));
+        jPanel49.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel49MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel49Layout = new javax.swing.GroupLayout(jPanel49);
         jPanel49.setLayout(jPanel49Layout);
@@ -831,6 +957,11 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel51.setBackground(new java.awt.Color(102, 102, 102));
         jPanel51.setPreferredSize(new java.awt.Dimension(60, 60));
+        jPanel51.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel51MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel51Layout = new javax.swing.GroupLayout(jPanel51);
         jPanel51.setLayout(jPanel51Layout);
@@ -859,6 +990,11 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel53.setBackground(new java.awt.Color(102, 102, 102));
         jPanel53.setPreferredSize(new java.awt.Dimension(60, 60));
+        jPanel53.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel53MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel53Layout = new javax.swing.GroupLayout(jPanel53);
         jPanel53.setLayout(jPanel53Layout);
@@ -887,6 +1023,11 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel55.setBackground(new java.awt.Color(102, 102, 102));
         jPanel55.setPreferredSize(new java.awt.Dimension(60, 60));
+        jPanel55.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel55MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel55Layout = new javax.swing.GroupLayout(jPanel55);
         jPanel55.setLayout(jPanel55Layout);
@@ -929,6 +1070,11 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel58.setBackground(new java.awt.Color(102, 102, 102));
         jPanel58.setPreferredSize(new java.awt.Dimension(60, 60));
+        jPanel58.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel58MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel58Layout = new javax.swing.GroupLayout(jPanel58);
         jPanel58.setLayout(jPanel58Layout);
@@ -957,6 +1103,11 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel60.setBackground(new java.awt.Color(102, 102, 102));
         jPanel60.setPreferredSize(new java.awt.Dimension(60, 60));
+        jPanel60.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel60MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel60Layout = new javax.swing.GroupLayout(jPanel60);
         jPanel60.setLayout(jPanel60Layout);
@@ -985,6 +1136,11 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel62.setBackground(new java.awt.Color(102, 102, 102));
         jPanel62.setPreferredSize(new java.awt.Dimension(60, 60));
+        jPanel62.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel62MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel62Layout = new javax.swing.GroupLayout(jPanel62);
         jPanel62.setLayout(jPanel62Layout);
@@ -1013,6 +1169,11 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel64.setBackground(new java.awt.Color(102, 102, 102));
         jPanel64.setPreferredSize(new java.awt.Dimension(60, 60));
+        jPanel64.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel64MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel64Layout = new javax.swing.GroupLayout(jPanel64);
         jPanel64.setLayout(jPanel64Layout);
@@ -1034,21 +1195,27 @@ public class GUI extends javax.swing.JFrame {
 
         newGame.setText("New Game");
         newGame.setToolTipText("");
+        newGame.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newGameActionPerformed(evt);
+            }
+        });
 
         DifficultySelect.add(diff1);
-        diff1.setText("jRadioButton1");
+        diff1.setLabel("Easy");
 
         DifficultySelect.add(diff2);
-        diff2.setText("jRadioButton2");
+        diff2.setLabel("Normal");
 
         DifficultySelect.add(diff3);
-        diff3.setText("jRadioButton3");
+        diff3.setLabel("Hard");
+        diff3.setRolloverEnabled(false);
 
         DifficultySelect.add(diff4);
-        diff4.setText("jRadioButton4");
+        diff4.setLabel("Very Hard");
 
         DifficultySelect.add(diff5);
-        diff5.setText("jRadioButton5");
+        diff5.setLabel("Professional");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1187,33 +1354,33 @@ public class GUI extends javax.swing.JFrame {
                         .addComponent(jPanel56, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(input, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(input, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(diff1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(diff3))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(newGame)
-                                        .addGap(39, 39, 39)
-                                        .addComponent(diff2)))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(diff5)
-                                    .addComponent(diff4))))
-                        .addGap(0, 106, Short.MAX_VALUE)))
-                .addContainerGap())
+                                .addComponent(jLabel1)
+                                .addGap(0, 398, Short.MAX_VALUE)))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(diff1)
+                            .addComponent(newGame))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(diff3)
+                            .addComponent(diff2))
+                        .addGap(76, 76, 76)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(diff5)
+                            .addComponent(diff4))
+                        .addGap(67, 67, 67))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jPanel64, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1274,10 +1441,10 @@ public class GUI extends javax.swing.JFrame {
                             .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1318,22 +1485,177 @@ public class GUI extends javax.swing.JFrame {
 
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
         clearText();
-        jPanel1.add(new posListner());
+        setText("1");
     }//GEN-LAST:event_jPanel1MouseClicked
-    
-    /*
-    mntmOneToOne.addMouseListener(new MouseAdapter() {
-     @Override
-     public void mouseClicked(MouseEvent mouseEvent) {
-         int count = mouseEvent.getClickCount();
-         if (count == 1) {
-           Component panel = (Component)mouseEvent.getSource();
-           name = panel.getName(); 
-         }
-     }
-    });
-    */
 
+    private void jPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseClicked
+        clearText();
+        setText("3");
+    }//GEN-LAST:event_jPanel3MouseClicked
+
+    private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
+        clearText();
+        setText("5");
+    }//GEN-LAST:event_jPanel5MouseClicked
+
+    private void jPanel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel7MouseClicked
+        clearText();
+        setText("7");
+    }//GEN-LAST:event_jPanel7MouseClicked
+
+    private void jPanel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel10MouseClicked
+        clearText();
+        setText("10");
+    }//GEN-LAST:event_jPanel10MouseClicked
+
+    private void jPanel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel12MouseClicked
+        clearText();
+        setText("12");
+    }//GEN-LAST:event_jPanel12MouseClicked
+
+    private void jPanel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel14MouseClicked
+        clearText();
+        setText("14");
+    }//GEN-LAST:event_jPanel14MouseClicked
+
+    private void jPanel16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel16MouseClicked
+       clearText();
+        setText("16");
+    }//GEN-LAST:event_jPanel16MouseClicked
+
+    private void jPanel17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel17MouseClicked
+        clearText();
+        setText("17");
+    }//GEN-LAST:event_jPanel17MouseClicked
+
+    private void jPanel19MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel19MouseClicked
+        clearText();
+        setText("19");
+    }//GEN-LAST:event_jPanel19MouseClicked
+
+    private void jPanel21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel21MouseClicked
+        clearText();
+        setText("21");
+    }//GEN-LAST:event_jPanel21MouseClicked
+
+    private void jPanel23MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel23MouseClicked
+        clearText();
+        setText("23");
+    }//GEN-LAST:event_jPanel23MouseClicked
+
+    private void jPanel26MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel26MouseClicked
+        clearText();
+        setText("26");
+    }//GEN-LAST:event_jPanel26MouseClicked
+
+    private void jPanel28MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel28MouseClicked
+       clearText();
+        setText("28");
+    }//GEN-LAST:event_jPanel28MouseClicked
+
+    private void jPanel30MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel30MouseClicked
+        clearText();
+        setText("30");
+    }//GEN-LAST:event_jPanel30MouseClicked
+
+    private void jPanel32MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel32MouseClicked
+        clearText();
+        setText("32");
+    }//GEN-LAST:event_jPanel32MouseClicked
+
+    private void jPanel33MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel33MouseClicked
+        clearText();
+        setText("33");
+    }//GEN-LAST:event_jPanel33MouseClicked
+
+    private void jPanel35MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel35MouseClicked
+        clearText();
+        setText("35");
+    }//GEN-LAST:event_jPanel35MouseClicked
+
+    private void jPanel37MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel37MouseClicked
+        clearText();
+        setText("37");
+    }//GEN-LAST:event_jPanel37MouseClicked
+
+    private void jPanel39MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel39MouseClicked
+        clearText();
+        setText("7");
+    }//GEN-LAST:event_jPanel39MouseClicked
+
+    private void jPanel42MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel42MouseClicked
+        clearText();
+        setText("42");
+    }//GEN-LAST:event_jPanel42MouseClicked
+
+    private void jPanel44MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel44MouseClicked
+        clearText();
+        setText("44");
+    }//GEN-LAST:event_jPanel44MouseClicked
+
+    private void jPanel46MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel46MouseClicked
+        clearText();
+        setText("46");
+    }//GEN-LAST:event_jPanel46MouseClicked
+
+    private void jPanel48MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel48MouseClicked
+       clearText();
+        setText("48");
+    }//GEN-LAST:event_jPanel48MouseClicked
+
+    private void jPanel49MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel49MouseClicked
+        clearText();
+        setText("49");
+    }//GEN-LAST:event_jPanel49MouseClicked
+
+    private void jPanel51MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel51MouseClicked
+        clearText();
+        setText("51");
+    }//GEN-LAST:event_jPanel51MouseClicked
+
+    private void jPanel53MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel53MouseClicked
+      clearText();
+        setText("53");
+    }//GEN-LAST:event_jPanel53MouseClicked
+
+    private void jPanel55MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel55MouseClicked
+       clearText();
+        setText("55");
+    }//GEN-LAST:event_jPanel55MouseClicked
+
+    private void jPanel58MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel58MouseClicked
+        clearText();
+        setText("58");
+    }//GEN-LAST:event_jPanel58MouseClicked
+
+    private void jPanel60MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel60MouseClicked
+        clearText();
+        setText("60");
+    }//GEN-LAST:event_jPanel60MouseClicked
+
+    private void jPanel62MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel62MouseClicked
+        clearText();
+        setText("62");
+    }//GEN-LAST:event_jPanel62MouseClicked
+
+    private void jPanel64MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel64MouseClicked
+        clearText();
+        setText("64");
+    }//GEN-LAST:event_jPanel64MouseClicked
+
+    private void newGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newGameActionPerformed
+        clearText();
+        setText("New Game");
+        
+        Component[] components = jPanel1.getComponents();
+        
+        components[0].setVisible(false);
+        
+        //jPanel1.setVisible(false);
+        jPanel1.validate();
+        jPanel1.repaint();
+    }//GEN-LAST:event_newGameActionPerformed
+    
     
     class posListner implements ActionListener {
         @Override
@@ -1341,8 +1663,15 @@ public class GUI extends javax.swing.JFrame {
             setText("test");
         }
     }
-
     
+    /*
+    jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel3MouseClicked(evt);
+            }
+        });
+
+    */
     //read up more on implementing listeners and events...
     
     
@@ -1357,6 +1686,34 @@ public class GUI extends javax.swing.JFrame {
     public String getText(){
         EventTest();
         return(input.getText());       
+    }
+    
+    //sets current move
+    public void movePiece(Position pos){
+        if(firstMove){
+            //this is the first pos of the move
+            Position pos1 = pos;
+            firstMove = false;            
+            
+        }else if (firstMove == false){
+            //this is the second move
+            Position pos2 = pos;
+            Move m = new Move(pos1, pos2);
+            currentMove = m;
+            
+        } 
+    }
+    
+    //reset everything needed for a new game to start
+    public void resetGame(){
+        board = new int[8][8];    //encoding of the pieces.
+        guiBoard = new ArrayList<>();
+        pos1 = new Position(-1, -1);
+        pos2 = new Position(-1, -1);
+        firstMove = true;
+        currentMove = new Move(pos1, pos2);
+        initGuiBoard();
+        //guiBoard.remove(jPanel1);
     }
     
     //pupulate guiBoard with all the panels that make it up.
