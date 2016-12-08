@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -40,7 +41,7 @@ public class GUI extends javax.swing.JFrame {
     int playerPos = -1;
     int turnCount = 0;
     
-    int newGamePlayerPos = -1;
+    int newGamePlayerPos = 3;
     Difficulty newGameDifficulty = Difficulty.BABY;
       
     /**
@@ -1836,10 +1837,10 @@ public class GUI extends javax.swing.JFrame {
         Colour winner = Colour.RED;
         this.playerPos = pPos;
         p1.setTeam(Colour.BLACK);
-        p1.setName("Player1");
+        p1.setName("Black");
         p1.setDifficulty(Difficulty.BABY);
         p2.setTeam(Colour.RED);
-        p2.setName("Player2");
+        p2.setName("Red");
         p2.setDifficulty(Difficulty.BABY);
         
         //setting which player goes first
@@ -1874,25 +1875,6 @@ public class GUI extends javax.swing.JFrame {
         
         return("1");
     }
-
-
-    //???? test class
-    class posListner implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            setText("test");
-        }
-    }
-    
-    /*
-    jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel3MouseClicked(evt);
-            }
-        });
-
-    */
-    //read up more on implementing listeners and events...
     
     //sets current move
     public void getMove(Position pos){
@@ -1914,8 +1896,13 @@ public class GUI extends javax.swing.JFrame {
     
     //works out whos turn it is and makes there move
     public void makeMove(){
-        //get AI's move then make the humans move
-            if(playerPos == 1){
+        //get AI's move then make the humans move   
+        if(playerPos == 1){
+                if (board.gameOver(p1.getTeam())) {
+                    String message = "Game Over! " + p2.getName() +  " Wins";
+                    JOptionPane.showMessageDialog(null, message, "Checkers", 1);
+                    resetGame();
+                }
                 MiniMax mini = new MiniMax(board, p1);
                 System.out.println("score" + mini.evalBoard());
                 Move move = mini.getBestMove();
@@ -1924,29 +1911,40 @@ public class GUI extends javax.swing.JFrame {
                 board.displayBoard();
                 printBoard(board.getBoard());
                 //check to see if the game is over
-                if (board.gameOver(p2.getTeam())) {  
-                    //winner = (p2.getTeam());
-                    //break;
-                } 
-                //print("Its your turn " + p2.getName() + " make your move!!!");
-                //print("(x,y)");
-                board.humanTurn(p2, currentMove);
-                board.displayBoard();
-                printBoard(board.getBoard());
+                if (board.gameOver(p2.getTeam())) {
+                    String message = "Game Over! " + p1.getName() +  " Wins";
+                    JOptionPane.showMessageDialog(null, message, "Checkers", 1);
+                    resetGame();
+                }
+                board.getAllAvailableMoves(p2.getTeam());
+                if(board.validateMove(currentMove, p2.getTeam())){
+                    //make move
+                    board.humanTurn(p2, currentMove);
+                    board.displayBoard();
+                    printBoard(board.getBoard());
+                    //check to see if the game is over
+                }
                 
             //get the human move then make an AI move
             }else if (playerPos == 2){
-                //print("Its your turn " + p1.getName() + " make your move!!!");
-                //print("(x,y)");
-                board.humanTurn(p1, currentMove);
-                board.displayBoard();
-                printBoard(board.getBoard());
+                board.getAllAvailableMoves(p1.getTeam());
+                if (board.gameOver(p1.getTeam())) {
+                    String message = "Game Over! " + p2.getName() +  " Wins";
+                    JOptionPane.showMessageDialog(null, message, "Checkers", 1);
+                    resetGame();
+                }
+                if(board.validateMove(currentMove, p1.getTeam())){
+                    //make move
+                    board.humanTurn(p1, currentMove);
+                    board.displayBoard();
+                    printBoard(board.getBoard());
+                }
                 //check to see if the game is over
                 if (board.gameOver(p2.getTeam())) {
-                    //winner = (p2.getTeam());
-                    //break;
-                } 
-                //print("The AI " + p2.getName() + " is making moves!");             
+                    String message = "Game Over! " + p1.getName() +  " Wins";
+                    JOptionPane.showMessageDialog(null, message, "Checkers", 1);
+                    resetGame();
+                }           
                 board.AITurn(p2);
                 board.displayBoard();
                 printBoard(board.getBoard());
@@ -1954,21 +1952,34 @@ public class GUI extends javax.swing.JFrame {
             //get a human move and the change colour for next human move
             }else if(playerPos == 3){
                 if(turnCount % 2 == 0){                 //player 1
-                    board.humanTurn(p1, currentMove);
-                    board.displayBoard();
-                    printBoard(board.getBoard());
-                //check to see if the game is over
+                    board.getAllAvailableMoves(p1.getTeam());
+                    if(board.validateMove(currentMove, p1.getTeam())){
+                        //make move
+                        board.humanTurn(p1, currentMove);
+                        board.displayBoard();
+                        printBoard(board.getBoard());
+                        turnCount++;
+                    }
                 }else{                                  //player 2
-                    board.humanTurn(p2, currentMove);                
-                    board.displayBoard();
-                    printBoard(board.getBoard());
+                    board.getAllAvailableMoves(p2.getTeam());
+                    if(board.validateMove(currentMove, p2.getTeam())){
+                        //make move
+                        board.humanTurn(p2, currentMove);
+                        board.displayBoard();
+                        printBoard(board.getBoard());
+                        turnCount++;
+                    }
                 }
                 if (board.gameOver(p2.getTeam())) {
-                    //winner = (p2.getTeam());
-                    //break;
-                } 
+                    String message = "Game Over! " + p1.getName() +  " Wins";
+                    JOptionPane.showMessageDialog(null, message, "Checkers", 1);
+                    resetGame();
+                } else if (board.gameOver(p1.getTeam())) {
+                    String message = "Game Over! " + p2.getName() +  " Wins";
+                    JOptionPane.showMessageDialog(null, message, "Checkers", 1);
+                    resetGame();
+                }
             }
-            turnCount++;
     }
     
     //reset everything needed for a new game to start
@@ -1979,17 +1990,21 @@ public class GUI extends javax.swing.JFrame {
         pos2 = new Position(-1, -1);
         firstMove = true;
         currentMove = new Move(pos1, pos2);
-        turnCount= 0;
+
         p1 = new Player();
         p2 = new Player();
         
+        playerPos = newGamePlayerPos;
+        turnCount = 0;
 
         initGuiBoard();
         setVisible(true);
-        runGame(3);
+        runGame(playerPos);
         
         initGuiBoard();
-        //guiBoard.remove(jPanel1);
+        
+        String s = Integer.toString(playerPos);
+        setText(s);
     }
     
     //prints the current board in the GUI. Call after every move is made.

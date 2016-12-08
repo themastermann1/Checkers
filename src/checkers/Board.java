@@ -268,6 +268,7 @@ public class Board {
     
     //returns a list of all moves currently possible 
     public void getAllAvailableMoves(Colour col){
+        print("getting all valid moves");
         ArrayList<Move> allMoves = new ArrayList<>();
         ArrayList<Move> allMovesT = new ArrayList<>();
         boolean take = false;
@@ -350,6 +351,15 @@ public class Board {
                                 taken.add(piece);
                             }
                         }
+                        if(takeL){
+                                Position newPos = new Position(lMoveUp.x-1 ,lMoveUp.y+1);
+                                Move m = new Move(c.getPos(), newPos);
+                                //set the pieces that have been taken
+                                m.setTaken(taken);
+                                m.setTake();
+                                availableMoves.add(m);
+                                taken = new ArrayList<Checker>();
+                        }
                     }
                 }else if(piece.getPos().x == rMoveUp.x && piece.getPos().y == rMoveUp.y && c.isAlive()){
                     rUp = false; 
@@ -364,6 +374,15 @@ public class Board {
                                 takeR = true;         //signal that a piece can be taken, 
                                 taken.add(piece);
                             }
+                        }
+                        if(takeR){
+                                Position newPos = new Position(rMoveUp.x+1 ,rMoveUp.y+1);
+                                Move m = new Move(c.getPos(), newPos);
+                                //set the pieces that have been taken
+                                m.setTaken(taken);
+                                m.setTake();
+                                availableMoves.add(m);
+                                taken = new ArrayList<Checker>();
                         }
                     }
                 } else if(piece.getPos().x == lMoveDn.x && piece.getPos().y == lMoveDn.y && c.isAlive()){   //if location is not free (empty or dead piece)
@@ -380,6 +399,15 @@ public class Board {
                                 taken.add(piece);
                             }
                         }
+                        if(takeL2){
+                                Position newPos = new Position(lMoveDn.x-1 ,lMoveDn.y-1);
+                                Move m = new Move(c.getPos(), newPos);
+                                //set the pieces that have been taken
+                                m.setTaken(taken);
+                                m.setTake();
+                                availableMoves.add(m);
+                                taken = new ArrayList<Checker>();
+                        }
                     }
                 }else if(piece.getPos().x == rMoveDn.x && piece.getPos().y == rMoveDn.y && c.isAlive()){
                     rDn = false;  
@@ -395,51 +423,32 @@ public class Board {
                                 taken.add(piece);
                             }
                         }
+                        if(takeR2){
+                                Position newPos = new Position(rMoveDn.x+1 ,rMoveDn.y-1);
+                                Move m = new Move(c.getPos(), newPos);
+                                //set the pieces that have been taken
+                                m.setTaken(taken);
+                                m.setTake();
+                                availableMoves.add(m);
+                                taken = new ArrayList<Checker>();
+                        }
                     }
                 }
             }   
             if(lUp){
                 Move m = new Move(c.getPos(), lMoveUp);
                 availableMoves.add(m);
-            }else if(takeL == true) {           
-                lMoveUp.x -=1;
-                lMoveUp.y +=1;
-                Move m = new Move(c.getPos(), lMoveUp);
-                m.setTaken(taken);
-                m.setTake();
-                availableMoves.add(m);
-            }     
+            }
             if(rUp){
                 Move m = new Move(c.getPos(), rMoveUp);
-                availableMoves.add(m);
-            }else if(takeR == true) {           
-                rMoveUp.x +=1;
-                rMoveUp.y +=1;
-                Move m = new Move(c.getPos(), rMoveUp);
-                m.setTaken(taken);
-                m.setTake();
                 availableMoves.add(m);
             }
             if(lDn){
                 Move m = new Move(c.getPos(), lMoveDn);
                 availableMoves.add(m);
-            }else if(takeL2 == true) {        
-                lMoveDn.x -=1;
-                lMoveDn.y -=1;
-                Move m = new Move(c.getPos(), lMoveDn);
-                m.setTaken(taken);
-                m.setTake();
-                availableMoves.add(m);
             }
             if(rDn){
                 Move m = new Move(c.getPos(), rMoveDn);
-                availableMoves.add(m);
-            }else if(takeR2 == true) {   
-                rMoveDn.x +=1;
-                rMoveDn.y -=1;
-                Move m = new Move(c.getPos(), rMoveDn);
-                m.setTaken(taken);
-                m.setTake();
                 availableMoves.add(m);
             }
              
@@ -460,6 +469,15 @@ public class Board {
                                 taken.add(piece);
                             }
                         }
+                        if(takeL){
+                                Position newPos = new Position(lMoveDn.x-1 ,lMoveDn.y-1);
+                                Move m = new Move(c.getPos(), newPos);
+                                //set the pieces that have been taken
+                                m.setTaken(taken);
+                                m.setTake();
+                                availableMoves.add(m);
+                                taken = new ArrayList<Checker>();
+                        }
                     }
                 }else if(piece.getPos().x == rMoveDn.x && piece.getPos().y == rMoveDn.y && c.isAlive()){
                     rDn = false;  
@@ -475,29 +493,24 @@ public class Board {
                                 taken.add(piece);
                             }
                         }
+                        if(takeR){
+                                Position newPos = new Position(rMoveDn.x+1 ,rMoveDn.y-1);
+                                Move m = new Move(c.getPos(), newPos);
+                                //set the pieces that have been taken
+                                m.setTaken(taken);
+                                m.setTake();
+                                availableMoves.add(m);
+                                taken = new ArrayList<Checker>();
+                        }
                     }
                 }
             }   
             if(lDn){
                 Move m = new Move(c.getPos(), lMoveDn);
                 availableMoves.add(m);
-            }else if(takeL == true) {        
-                lMoveDn.x -=1;
-                lMoveDn.y -=1;
-                Move m = new Move(c.getPos(), lMoveDn);
-                m.setTaken(taken);
-                m.setTake();
-                availableMoves.add(m);
             }
             if(rDn){
                 Move m = new Move(c.getPos(), rMoveDn);
-                availableMoves.add(m);
-            }else if(takeR == true) {   
-                rMoveDn.x +=1;
-                rMoveDn.y -=1;
-                Move m = new Move(c.getPos(), rMoveDn);
-                m.setTaken(taken);
-                m.setTake();
                 availableMoves.add(m);
             }
         }else if (c.getColour() == Colour.RED){
@@ -516,6 +529,14 @@ public class Board {
                                 taken.add(piece);      //add taken piece to taken list
                             }
                         }
+                        if(takeL){
+                            Position newPos = new Position((lMoveUp.x - 1) ,(lMoveUp.y + 1));
+                            Move m = new Move(c.getPos(), newPos);
+                            m.setTaken(taken);
+                            m.setTake();
+                            availableMoves.add(m); 
+                            taken = new ArrayList<Checker>();
+                        }
                     }
                 }else if(piece.getPos().x == rMoveUp.x && piece.getPos().y == rMoveUp.y && c.isAlive()){
                     rUp = false; 
@@ -531,31 +552,25 @@ public class Board {
                                 taken.add(piece);
                             }
                         }
+                        if(takeR){
+                                Position newPos = new Position(rMoveUp.x+1 ,rMoveUp.y+1);
+                                Move m = new Move(c.getPos(), newPos);
+                                //set the pieces that have been taken
+                                m.setTaken(taken);
+                                m.setTake();
+                                availableMoves.add(m);
+                                taken = new ArrayList<Checker>();
+                        }
                     }
                 }  
             }
             if(lUp){
                 Move m = new Move(c.getPos(), lMoveUp);
                 availableMoves.add(m);
-            }else if(takeL == true) {           
-                lMoveUp.x -=1;
-                lMoveUp.y +=1;
-                Move m = new Move(c.getPos(), lMoveUp);
-                m.setTaken(taken);
-                m.setTake();
-                availableMoves.add(m); 
-            }     
+            } 
 
             if(rUp){
                 Move m = new Move(c.getPos(), rMoveUp);
-                availableMoves.add(m);
-            }else if(takeR == true) {           
-                rMoveUp.x +=1;
-                rMoveUp.y +=1;
-                Move m = new Move(c.getPos(), rMoveUp);
-                //set the pieces that have been taken
-                m.setTaken(taken);
-                m.setTake();
                 availableMoves.add(m);
             }
         }
