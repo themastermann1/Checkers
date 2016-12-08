@@ -1825,7 +1825,7 @@ public class GUI extends javax.swing.JFrame {
             p1.setController(Controller.HUMAN);
         }
         
-        board.displayBoard();
+        //board.displayBoard();
         printBoard(board.getBoard());
         //move the player selection out of main loop, have it so if AI is first it takes a move first then loop enters as standard.
         board.getAllAvailableMoves(p1.getTeam());
@@ -1836,7 +1836,7 @@ public class GUI extends javax.swing.JFrame {
                 Move move = mini.getBestMove();
                 board.movePiece(move, p1.getTeam());    //move is null for some reason
                 System.out.println(move.getStart().toString());
-                board.displayBoard();
+                //board.displayBoard();
                 printBoard(board.getBoard());
                 turnCount++;
         }
@@ -1898,7 +1898,7 @@ public class GUI extends javax.swing.JFrame {
                 if(board.validateMove(currentMove, p2.getTeam())){
                     //make move
                     board.humanTurn(p2, currentMove);
-                    board.displayBoard();
+                    //board.displayBoard();
                     printBoard(board.getBoard());
                     turnCount++;
                     //check to see if the game is over
@@ -1915,7 +1915,7 @@ public class GUI extends javax.swing.JFrame {
                 Move move = mini.getBestMove();
                 board.movePiece(move, p1.getTeam());    //move is null for some reason
                 turnCount++;
-                board.displayBoard();
+                //board.displayBoard();
                 printBoard(board.getBoard());
                 //check to see if the game is over
                 
@@ -1930,7 +1930,7 @@ public class GUI extends javax.swing.JFrame {
                 if(board.validateMove(currentMove, p1.getTeam())){
                     //make move
                     board.humanTurn(p1, currentMove);
-                    board.displayBoard();
+                    //board.displayBoard();
                     printBoard(board.getBoard());
                     turnCount++;
                 }
@@ -1947,7 +1947,7 @@ public class GUI extends javax.swing.JFrame {
                 Move move = mini.getBestMove();
                 board.movePiece(move, p2.getTeam());
                 turnCount++;
-                board.displayBoard();
+                //board.displayBoard();
                 printBoard(board.getBoard());
                 
             //get a human move and the change colour for next human move
@@ -1957,7 +1957,7 @@ public class GUI extends javax.swing.JFrame {
                     if(board.validateMove(currentMove, p1.getTeam())){
                         //make move
                         board.humanTurn(p1, currentMove);
-                        board.displayBoard();
+                        //board.displayBoard();
                         printBoard(board.getBoard());
                         turnCount++;
                     }
@@ -1966,7 +1966,7 @@ public class GUI extends javax.swing.JFrame {
                     if(board.validateMove(currentMove, p2.getTeam())){
                         //make move
                         board.humanTurn(p2, currentMove);
-                        board.displayBoard();
+                        //board.displayBoard();
                         printBoard(board.getBoard());
                         turnCount++;
                     }

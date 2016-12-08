@@ -45,10 +45,10 @@ public class MiniMax {
                 maxDepth = 5;
                 break;   
             case SUICIDAL:
-                maxDepth = 9;
+                maxDepth = 7;
                 break;                    
             case HELL_ON_EARTH:
-                maxDepth = 13;
+                maxDepth = 9;
                 break;     
             default:
                 maxDepth = 1;
@@ -64,7 +64,7 @@ public class MiniMax {
     //minimax evaluation
     public int miniMax(int depth, Player p, int a, int b){
         int topScore;
-        System.out.println("current depth" + depth);
+        //System.out.println("current depth" + depth);
         //get another player thats the other team as the minimax target
         //this payer does not exist, and will never make any move, 
         //but is required to work out the "best" move to oppose the move chosen for
@@ -84,7 +84,7 @@ public class MiniMax {
         }
         
         clone.getAllAvailableMoves(p.getTeam());
-        System.out.println("number of moves" + board.allMoves.size());
+        //System.out.println("number of moves" + board.allMoves.size());
         //if the game is won on this level, return a high score (10 or something)
         if(clone.allMoves.isEmpty()){
             if(p.getTeam()==player.getTeam()){  //loosing team = caling team, ive shitty score
@@ -97,20 +97,16 @@ public class MiniMax {
         }
         
         if(depth > maxDepth){       //end of evaluations, return a neutral score
-            System.out.println("depth reached");
+            //System.out.println("depth reached");
             return(0);
         }
-        System.out.println("break");
         for(Move m : clone.allMoves){
             clone.getAllAvailableMoves(p.getTeam());
-            System.out.println("break1");
             if(p.getTeam() == player.getTeam()){      
-                System.out.println("break2");//red teams go
                 //make the first move in the list
-                System.out.println(m.getStart().toString() + m.getEnd().toString());
+                //System.out.println(m.getStart().toString() + m.getEnd().toString());
                 clone.movePiece(m, p.getTeam());
-                clone.displayBoard();
-                System.out.println("break3");
+               // clone.displayBoard();
                 int currentScore = miniMax(depth +1, p2, a, b); //increment and use other player
                 if(currentScore > topScore){
                     topScore = currentScore;
@@ -118,12 +114,9 @@ public class MiniMax {
                 if(currentScore > a){
                     a = currentScore;
                 }
-                System.out.println("break4 current score" + currentScore);
-                System.out.println("curent depth2 " + depth);
                 if(depth == 0){     //at the root of the minimax
                     //make a list of moves
                     m.setScore(currentScore);
-                    System.out.println("scorezz" + currentScore);
                     successorEvals.add(m);
                 }
                 //get the value of the previous move     
@@ -141,10 +134,10 @@ public class MiniMax {
             //make sure these moves are not on real board...
             //reset the last move made
             clone.updateBoard();
-            clone.displayBoard();
+            //clone.displayBoard();
             clone.undoMove(m, p.getTeam());
             clone.updateBoard();
-            clone.displayBoard();
+            //clone.displayBoard();
             //prune bad leafs
             if(a >= b){
                 break;
@@ -156,15 +149,13 @@ public class MiniMax {
     public Move getBestMove(){
         int max = -999;
         Move bestMove = new Move(null, null);
-        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         if(successorEvals.isEmpty()){
-            System.out.print("shits empty yo");
+            //System.out.print("shits empty yo");
         }
         for(Move mov: successorEvals){
             if(max < mov.getScore()){
                 max=mov.getScore();
                 bestMove = mov;
-                System.out.print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             }
         }
         //System.out.print("THE BEST MOVE IS: " + bestMove.getStart().toString() + bestMove.getEnd().toString());

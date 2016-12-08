@@ -20,7 +20,7 @@ public class Checkers {
      */
     public static void main(String[] args) {
         //welcome message
-        print("Welcome to checkers MK:I");
+        //print("Welcome to checkers MK:I");
         //get user inupt from board?
         gui.runGame(3);
     }

@@ -50,8 +50,8 @@ public class Board {
     public void humanTurn(Player human, Move humanMove){
         Move m = humanMove;
         
-        print(humanMove.getStart().toString());    
-        print(humanMove.getEnd().toString());
+        //print(humanMove.getStart().toString());    
+        //print(humanMove.getEnd().toString());
         getAllAvailableMoves(human.getTeam());
         movePiece(m, human.getTeam());
     }
@@ -62,8 +62,8 @@ public class Board {
         
         Move m = randMove2(ai.getTeam());
         
-        print(m.getStart().toString());
-        print(m.getEnd().toString());
+        //print(m.getStart().toString());
+        //print(m.getEnd().toString());
         
         //MiniMax mini = new MiniMax(board, ai);
         
@@ -106,11 +106,9 @@ public class Board {
             for(Checker c2 : m.taken){
                 pieces.remove(c2);               
             }
-            
-            System.out.println("piece moved");
             updateBoard();
         }else{
-            print("oops, looks like " + mov.getStart().toString() + mov.getEnd().toString()  + " not a valid move!");
+            //print("oops, looks like " + mov.getStart().toString() + mov.getEnd().toString()  + " not a valid move!");
         }
     }   
     
@@ -130,6 +128,7 @@ public class Board {
                 c.move(m.getStart());
                 if(m.getScore()==2){        //the move promoted the piece to a king
                     c.setRank(Type.PLEB);
+                    print("UNDOING A KING MOVE================================================================");
                 }
                 //if(kinged){
                 //    c.setRank(Type.PLEB);       
@@ -137,8 +136,8 @@ public class Board {
             }
         } 
         updateBoard();
-        displayBoard();
-        System.out.println("UNDOING A MOVE");
+        //displayBoard();
+        //System.out.println("UNDOING A MOVE");
     }
     
     //Check that the start location corrisponds to a piece and the piece is alive.
@@ -146,24 +145,16 @@ public class Board {
     //add check that piece is of correct colour
     public boolean validateMove(Move m, Colour team){
         for(Checker c : pieces){
-            System.out.println("break0.5");
             if(c.getPos().x == m.getStart().x && c.getPos().y == m.getStart().y && c.isAlive() && c.getColour() == team){
-                System.out.println("break11");
                 for(Move mov : this.allMoves){
-                    System.out.println("break12");
-                    System.out.println(mov.getStart().toString() + mov.getEnd().toString());
                     if(mov.getStart().x == m.getStart().x && mov.getStart().y == m.getStart().y){   //start move is valid
-                        System.out.println("break13");
                         if(mov.getEnd().x == m.getEnd().x && mov.getEnd().y == m.getEnd().y){   //end move is valid
-                            System.out.println("break14");
                             return(true); 
                         }
                     }
                 }
             }
         }             
-        //System.exit(0);
-        print("break0");
         return(false); 
     }
     
@@ -264,7 +255,7 @@ public class Board {
                 return(mov);
             }
         }
-        print("no move");
+        //print("no move");
         return(null);
     }
     
@@ -280,7 +271,7 @@ public class Board {
     
     //returns a list of all moves currently possible 
     public void getAllAvailableMoves(Colour col){
-        print("getting all valid moves");
+        //print("getting all valid moves");
         ArrayList<Move> allMoves = new ArrayList<>();
         ArrayList<Move> allMovesT = new ArrayList<>();
         boolean take = false;
@@ -305,7 +296,7 @@ public class Board {
             this.allMoves = allMoves;    
         }
         for(Move m : this.allMoves){
-            print(m.getStart().toString() + m.getEnd().toString());
+            //print(m.getStart().toString() + m.getEnd().toString());
         }
     }    
     
