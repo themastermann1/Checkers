@@ -28,7 +28,7 @@ public class Checker {
     
     public void kill(){
         this.alive = false;
-        System.out.println("R.I.P");
+        //System.out.println("R.I.P");
     }
     
     public void king(){
@@ -50,6 +50,10 @@ public class Checker {
 
     public Type getRank() {
         return rank;
+    }
+
+    public void setRank(Type rank) {
+        this.rank = rank;
     }
 
     public Position getPos() {

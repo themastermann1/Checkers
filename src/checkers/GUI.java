@@ -1903,10 +1903,11 @@ public class GUI extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, message, "Checkers", 1);
                     resetGame();
                 }
+                setText("The AI is thinking");
                 MiniMax mini = new MiniMax(board, p1);
                 System.out.println("score" + mini.evalBoard());
                 Move move = mini.getBestMove();
-                board.movePiece(move, p1.getTeam());
+                board.movePiece(move, p1.getTeam());    //move is null for some reason
                 
                 board.displayBoard();
                 printBoard(board.getBoard());
@@ -1945,7 +1946,13 @@ public class GUI extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, message, "Checkers", 1);
                     resetGame();
                 }           
-                board.AITurn(p2);
+                
+                setText("The AI is thinking");
+                MiniMax mini = new MiniMax(board, p1);
+                System.out.println("score" + mini.evalBoard());
+                Move move = mini.getBestMove();
+                board.movePiece(move, p1.getTeam());
+                
                 board.displayBoard();
                 printBoard(board.getBoard());
                 
@@ -2005,6 +2012,10 @@ public class GUI extends javax.swing.JFrame {
         
         String s = Integer.toString(playerPos);
         setText(s);
+        
+        if(playerPos == 1){       //if the AI is going first, make the AI's first move
+            //make the first AI move?
+        }
     }
     
     //prints the current board in the GUI. Call after every move is made.

@@ -117,17 +117,29 @@ public class Board {
     
     //test me
     public void undoMove(Move m, Colour team1){
+        //boolean kinged = false;
         for(Checker c : m.getTaken()){
             this.pieces.add(c);     //add the pieces that were taken back to list
+            //if(c.getRank()==Type.KING){
+                //kinged = false;   
+            //}
+            //print("test1" + c.getPos().toString());
         }
         
         for(Checker c : pieces){
             //get the checker thats at the end of the move
+            print(c.getPos().toString());
             if(c.getPos().x == m.getEnd().x && c.getPos().y == m.getEnd().y && c.alive){
                 //move it back to the start
                 c.move(m.getStart());
+                //if(kinged){
+                //    c.setRank(Type.PLEB);       
+                //}
+                //print("test2");
+                //print(c.getPos().toString());
             }
         } 
+        System.out.println("UNDOING A MOVE");
     }
     
     //Check that the start location corrisponds to a piece and the piece is alive.

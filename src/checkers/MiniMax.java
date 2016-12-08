@@ -67,7 +67,7 @@ public class MiniMax {
     public int miniMax(int depth, Player p, int a, int b){
         int topScore;
         System.out.println("current depth" + depth);
-        //get another player thats the otehr team as the minimax target
+        //get another player thats the other team as the minimax target
         //this payer does not exist, and will never make any move, 
         //but is required to work out the "best" move to oppose the move chosen for
         //the first player, so that the first player can minimise this.
@@ -104,12 +104,14 @@ public class MiniMax {
         }
         System.out.println("break");
         for(Move m : clone.allMoves){
+            clone.getAllAvailableMoves(p.getTeam());
             System.out.println("break1");
             if(p.getTeam() == Colour.RED){      
                 System.out.println("break2");//red teams go
                 //make the first move in the list
                 System.out.println(m.getStart().toString() + m.getEnd().toString());
                 clone.movePiece(m, p.getTeam());
+                clone.displayBoard();
                 System.out.println("break3");
                 int currentScore = miniMax(depth +1, p2, a, b); //increment and use other player
                 if(currentScore > topScore){
@@ -118,7 +120,7 @@ public class MiniMax {
                 if(currentScore > a){
                     a = currentScore;
                 }
-                System.out.println("break4");
+                System.out.println("break4 current score" + currentScore);
                 System.out.println("curent depth2 " + depth);
                 if(depth == 0){     //at the root of the minimax
                     //make a list of moves
@@ -140,8 +142,11 @@ public class MiniMax {
             }
             //make sure these moves are not on real board...
             //reset the last move made
+            clone.updateBoard();
+            clone.displayBoard();
             clone.undoMove(m, p.getTeam());
-            
+            clone.updateBoard();
+            clone.displayBoard();
             //prune bad leafs
             if(a >= b){
                 break;
@@ -153,13 +158,18 @@ public class MiniMax {
     public Move getBestMove(){
         int max = -999;
         Move bestMove = new Move(null, null);
-        
+        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        if(successorEvals.isEmpty()){
+            System.out.print("shits empty yo");
+        }
         for(Move mov: successorEvals){
             if(max < mov.getScore()){
                 max=mov.getScore();
                 bestMove = mov;
+                System.out.print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             }
         }
+        //System.out.print("THE BEST MOVE IS: " + bestMove.getStart().toString() + bestMove.getEnd().toString());
         return bestMove;
     }
     
