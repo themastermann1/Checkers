@@ -5,6 +5,8 @@
  */
 package checkers;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Simon
@@ -14,6 +16,9 @@ public class Move {
     Position end;
     Boolean take;
     int score;
+    //list of checkers taken on the *last* jump
+    //messy, but required for undoing moves in minimax
+    ArrayList<Checker> taken = new ArrayList<>();  
     
     Move(Position s, Position e){
         start = s;
@@ -54,5 +59,19 @@ public class Move {
         this.score = score;
     }
     
+    public void appendTaken(Checker c){
+        taken.add(c);
+    }
     
+    public void setTaken(ArrayList<Checker> c){
+        taken = c;
+    }
+    
+    public ArrayList<Checker> getTaken(){
+        return this.taken;
+    }
+    
+    public void clearTaken(){
+        taken = new ArrayList<Checker>();
+    }
 }

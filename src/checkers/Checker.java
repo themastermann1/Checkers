@@ -44,6 +44,10 @@ public class Checker {
         return colour;
     }
 
+    public void setColour(Colour colour) {
+        this.colour = colour;
+    }
+
     public Type getRank() {
         return rank;
     }
