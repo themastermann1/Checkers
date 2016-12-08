@@ -83,20 +83,20 @@ public class Board {
                         for(Checker c2 : m.taken){
                             c2.kill();                     //c2 has been taken, rip.
                             m.setScore(1);
-                            if(c2.getRank() == Type.KING){      //kill a king become a king
+                            if(c2.getRank() == Type.KING && c.getRank() == Type.PLEB){      //kill a king become a king
                                 c.king();
                                 m.setScore(2);
                             } 
                         }
                     }
                     //kinging a piece that reaches the end of the board
-                    if(c.getColour() == Colour.RED && c.getPos().y == 7){
+                    if(c.getColour() == Colour.RED && c.getPos().y == 7 && c.getRank() == Type.PLEB){
                         c.king();
-                        m.setScore(1);
+                        m.setScore(2);
                         break;      //once kinged move ends
-                    }else if(c.getColour() == Colour.BLACK && c.getPos().y == 0){
+                    }else if(c.getColour() == Colour.BLACK && c.getPos().y == 0 && c.getRank() == Type.PLEB){
                         c.king();
-                        m.setScore(1);
+                        m.setScore(2);
                         break;
                     }
                 }
@@ -111,7 +111,6 @@ public class Board {
             updateBoard();
         }else{
             print("oops, looks like " + mov.getStart().toString() + mov.getEnd().toString()  + " not a valid move!");
-            System.exit(1);         //Invalid move, break and throw some sort of error
         }
     }   
     
@@ -119,26 +118,26 @@ public class Board {
     public void undoMove(Move m, Colour team1){
         //boolean kinged = false;
         for(Checker c : m.getTaken()){
+            c.ressurect();
             this.pieces.add(c);     //add the pieces that were taken back to list
-            //if(c.getRank()==Type.KING){
-                //kinged = false;   
-            //}
-            //print("test1" + c.getPos().toString());
+           
         }
         
         for(Checker c : pieces){
             //get the checker thats at the end of the move
-            print(c.getPos().toString());
             if(c.getPos().x == m.getEnd().x && c.getPos().y == m.getEnd().y && c.alive){
                 //move it back to the start
                 c.move(m.getStart());
+                if(m.getScore()==2){        //the move promoted the piece to a king
+                    c.setRank(Type.PLEB);
+                }
                 //if(kinged){
                 //    c.setRank(Type.PLEB);       
                 //}
-                //print("test2");
-                //print(c.getPos().toString());
             }
         } 
+        updateBoard();
+        displayBoard();
         System.out.println("UNDOING A MOVE");
     }
     
@@ -147,6 +146,7 @@ public class Board {
     //add check that piece is of correct colour
     public boolean validateMove(Move m, Colour team){
         for(Checker c : pieces){
+            System.out.println("break0.5");
             if(c.getPos().x == m.getStart().x && c.getPos().y == m.getStart().y && c.isAlive() && c.getColour() == team){
                 System.out.println("break11");
                 for(Move mov : this.allMoves){
@@ -363,11 +363,12 @@ public class Board {
                                 taken.add(piece);
                             }
                         }
+                        
                         if(takeL){
                                 Position newPos = new Position(lMoveUp.x-1 ,lMoveUp.y+1);
                                 Move m = new Move(c.getPos(), newPos);
                                 //set the pieces that have been taken
-                                m.setTaken(taken);
+                                m.appendTaken(taken.get(0));
                                 m.setTake();
                                 availableMoves.add(m);
                                 taken = new ArrayList<Checker>();
@@ -391,7 +392,7 @@ public class Board {
                                 Position newPos = new Position(rMoveUp.x+1 ,rMoveUp.y+1);
                                 Move m = new Move(c.getPos(), newPos);
                                 //set the pieces that have been taken
-                                m.setTaken(taken);
+                                m.appendTaken(taken.get(0));
                                 m.setTake();
                                 availableMoves.add(m);
                                 taken = new ArrayList<Checker>();
@@ -415,7 +416,7 @@ public class Board {
                                 Position newPos = new Position(lMoveDn.x-1 ,lMoveDn.y-1);
                                 Move m = new Move(c.getPos(), newPos);
                                 //set the pieces that have been taken
-                                m.setTaken(taken);
+                                m.appendTaken(taken.get(0));
                                 m.setTake();
                                 availableMoves.add(m);
                                 taken = new ArrayList<Checker>();
@@ -439,7 +440,7 @@ public class Board {
                                 Position newPos = new Position(rMoveDn.x+1 ,rMoveDn.y-1);
                                 Move m = new Move(c.getPos(), newPos);
                                 //set the pieces that have been taken
-                                m.setTaken(taken);
+                                m.appendTaken(taken.get(0));
                                 m.setTake();
                                 availableMoves.add(m);
                                 taken = new ArrayList<Checker>();
@@ -485,7 +486,7 @@ public class Board {
                                 Position newPos = new Position(lMoveDn.x-1 ,lMoveDn.y-1);
                                 Move m = new Move(c.getPos(), newPos);
                                 //set the pieces that have been taken
-                                m.setTaken(taken);
+                                m.appendTaken(taken.get(0));
                                 m.setTake();
                                 availableMoves.add(m);
                                 taken = new ArrayList<Checker>();
@@ -509,7 +510,7 @@ public class Board {
                                 Position newPos = new Position(rMoveDn.x+1 ,rMoveDn.y-1);
                                 Move m = new Move(c.getPos(), newPos);
                                 //set the pieces that have been taken
-                                m.setTaken(taken);
+                                m.appendTaken(taken.get(0));
                                 m.setTake();
                                 availableMoves.add(m);
                                 taken = new ArrayList<Checker>();
@@ -544,7 +545,7 @@ public class Board {
                         if(takeL){
                             Position newPos = new Position((lMoveUp.x - 1) ,(lMoveUp.y + 1));
                             Move m = new Move(c.getPos(), newPos);
-                            m.setTaken(taken);
+                            m.appendTaken(taken.get(0));
                             m.setTake();
                             availableMoves.add(m); 
                             taken = new ArrayList<Checker>();
@@ -568,7 +569,7 @@ public class Board {
                                 Position newPos = new Position(rMoveUp.x+1 ,rMoveUp.y+1);
                                 Move m = new Move(c.getPos(), newPos);
                                 //set the pieces that have been taken
-                                m.setTaken(taken);
+                                m.appendTaken(taken.get(0));
                                 m.setTake();
                                 availableMoves.add(m);
                                 taken = new ArrayList<Checker>();

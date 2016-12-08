@@ -31,6 +31,11 @@ public class Checker {
         //System.out.println("R.I.P");
     }
     
+    //IT LIVES, IT LIVES!, ITS ALLLLLLLIVE!!!!!
+    public void ressurect(){
+        this.alive = true;
+    }
+    
     public void king(){
         rank = Type.KING;
         System.out.println("your piece just became a king!");

@@ -45,17 +45,15 @@ public class MiniMax {
                 maxDepth = 5;
                 break;   
             case SUICIDAL:
-                maxDepth = 10;
+                maxDepth = 9;
                 break;                    
             case HELL_ON_EARTH:
-                maxDepth = 20;
+                maxDepth = 13;
                 break;     
             default:
-                maxDepth = 5;
+                maxDepth = 1;
                 break;
         }
-        
-        System.out.println("max depth" + maxDepth);
     }
     
     public int evalBoard(){
@@ -106,7 +104,7 @@ public class MiniMax {
         for(Move m : clone.allMoves){
             clone.getAllAvailableMoves(p.getTeam());
             System.out.println("break1");
-            if(p.getTeam() == Colour.RED){      
+            if(p.getTeam() == player.getTeam()){      
                 System.out.println("break2");//red teams go
                 //make the first move in the list
                 System.out.println(m.getStart().toString() + m.getEnd().toString());
@@ -130,7 +128,7 @@ public class MiniMax {
                 }
                 //get the value of the previous move     
                 //add the score for that chain of moves
-            }else if(p.getTeam() == Colour.BLACK){      //black teams go
+            }else{      //black teams go
                 clone.movePiece(m, p.getTeam());
                 int currentScore = miniMax(depth +1, p2, a, b);
                 if(currentScore < topScore){

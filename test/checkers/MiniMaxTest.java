@@ -20,6 +20,7 @@ public class MiniMaxTest {
     /**
      * Test of evalBoard method, of class MiniMax.
      */
+    /*
     @Test
     public void testEvalBoard() {
         System.out.println("evalBoard");
@@ -29,10 +30,11 @@ public class MiniMaxTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
-
+    */
     /**
      * Test of getMax method, of class MiniMax.
      */
+    /*
     @Test
     public void testGetMax() {
         System.out.println("getMax");
@@ -42,10 +44,11 @@ public class MiniMaxTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
-
+    */
     /**
      * Test of getMini method, of class MiniMax.
      */
+    /*
     @Test
     public void testGetMini() {
         System.out.println("getMini");
@@ -58,6 +61,7 @@ public class MiniMaxTest {
     /**
      * Test of miniMax method, of class MiniMax.
      */
+    /*
     @Test
     public void testMiniMax() {
         System.out.println("miniMax");
@@ -68,5 +72,6 @@ public class MiniMaxTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
+    */
     
 }

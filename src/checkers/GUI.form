@@ -169,40 +169,35 @@
                       <Component id="jPanel56" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="newGame" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                          <Component id="diff3" min="-2" max="-2" attributes="0"/>
-                          <Component id="diff2" min="-2" max="-2" attributes="0"/>
-                          <Component id="diff4" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                              <Component id="diff1" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="diff5" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane1" pref="214" max="32767" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jRadioButton1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jRadioButton2" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jRadioButton3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <Component id="jLabel2" min="-2" pref="183" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  </Group>
-              </Group>
               <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="diff3" min="-2" max="-2" attributes="0"/>
+                              <Component id="diff2" min="-2" max="-2" attributes="0"/>
+                              <Component id="diff4" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="diff1" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="diff5" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="135" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jRadioButton1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jRadioButton2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jRadioButton3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Component id="jLabel2" min="-2" pref="183" max="-2" attributes="0"/>
+                      <Component id="newGame" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" pref="434" max="32767" attributes="0"/>
+                  </Group>
+                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="20" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -210,95 +205,95 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="jScrollPane1" min="-2" pref="123" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" max="-2" attributes="0">
                   <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="jPanel64" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jPanel63" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jPanel62" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jPanel61" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jPanel60" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jPanel59" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jPanel58" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jPanel57" alignment="1" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="jPanel56" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jPanel55" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jPanel54" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jPanel53" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jPanel52" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jPanel51" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jPanel50" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jPanel49" alignment="1" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="jPanel48" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jPanel47" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jPanel46" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jPanel45" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jPanel44" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jPanel43" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jPanel42" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jPanel41" alignment="1" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="jPanel40" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jPanel39" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jPanel38" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jPanel37" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jPanel36" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jPanel35" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jPanel34" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jPanel33" alignment="1" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="jLabel2" max="32767" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="diff1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jRadioButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="diff2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jRadioButton2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="diff3" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jRadioButton3" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="diff4" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="diff5" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="jPanel64" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jPanel63" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jPanel62" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jPanel61" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jPanel60" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jPanel59" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jPanel58" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jPanel57" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="jPanel32" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="jPanel31" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="jPanel30" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="jPanel29" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="jPanel28" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="jPanel27" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="jPanel26" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="jPanel25" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jPanel56" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jPanel55" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jPanel54" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jPanel53" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jPanel52" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jPanel51" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jPanel50" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jPanel49" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="jPanel48" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jPanel47" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jPanel46" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jPanel45" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jPanel44" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jPanel43" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jPanel42" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jPanel41" alignment="1" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="jPanel40" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jPanel39" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jPanel38" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jPanel37" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jPanel36" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jPanel35" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jPanel34" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jPanel33" alignment="1" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="jLabel2" max="32767" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="diff1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jRadioButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="diff2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jRadioButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="diff3" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jRadioButton3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="diff4" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="diff5" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="jPanel32" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="jPanel31" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="jPanel30" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="jPanel29" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="jPanel28" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="jPanel27" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="jPanel26" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="jPanel25" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="jPanel24" alignment="0" max="32767" attributes="0"/>
                           <Component id="jPanel23" alignment="0" max="32767" attributes="0"/>
@@ -320,19 +315,20 @@
                           <Component id="jPanel10" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Component id="jPanel9" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="jPanel8" alignment="1" max="32767" attributes="0"/>
-                          <Component id="jPanel7" alignment="1" max="32767" attributes="0"/>
-                          <Component id="jPanel6" alignment="1" max="32767" attributes="0"/>
-                          <Component id="jPanel5" alignment="1" max="32767" attributes="0"/>
-                          <Component id="jPanel4" alignment="1" max="32767" attributes="0"/>
-                          <Component id="jPanel3" alignment="1" max="32767" attributes="0"/>
-                          <Component id="jPanel2" max="32767" attributes="0"/>
-                          <Component id="jPanel1" max="32767" attributes="0"/>
-                          <Component id="newGame" alignment="1" max="32767" attributes="0"/>
-                      </Group>
                   </Group>
+                  <Component id="jScrollPane1" min="-2" pref="123" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                  <Component id="jPanel8" alignment="1" max="32767" attributes="0"/>
+                  <Component id="jPanel7" alignment="1" max="32767" attributes="0"/>
+                  <Component id="jPanel6" alignment="1" max="32767" attributes="0"/>
+                  <Component id="jPanel5" alignment="1" max="32767" attributes="0"/>
+                  <Component id="jPanel4" alignment="1" max="32767" attributes="0"/>
+                  <Component id="jPanel3" alignment="1" max="32767" attributes="0"/>
+                  <Component id="jPanel2" max="32767" attributes="0"/>
+                  <Component id="jPanel1" max="32767" attributes="0"/>
+                  <Component id="newGame" alignment="1" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="22" max="32767" attributes="0"/>
           </Group>
@@ -1935,6 +1931,9 @@
     </Container>
     <Component class="javax.swing.JButton" name="newGame">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="24" style="0"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="New Game"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
@@ -2045,6 +2044,11 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButton3ActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel4">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Move Log"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
